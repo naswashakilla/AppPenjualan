@@ -70,6 +70,7 @@
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
                 android:text="Estimasi hari ini"
+                android:layout_weight="1"
                 android:textSize="14sp"
                 android:textColor="#555"/>
 
@@ -97,8 +98,8 @@
                     android:gravity="center">
 
                     <ImageView
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
                         android:src="@drawable/ic_transaksi"/>
 
                     <TextView
@@ -118,8 +119,8 @@
                     android:gravity="center">
 
                     <ImageView
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
                         android:src="@drawable/ic_laporan"/>
 
                     <TextView
@@ -147,6 +148,7 @@
         app:layout_constraintEnd_toEndOf="parent"/>
 
     <GridLayout
+        android:id="@+id/grid1"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:columnCount="3"
@@ -161,16 +163,26 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_columnWeight="1">
+=
+            <FrameLayout
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:background="@drawable/circle_pink"
+                android:gravity="center">
 
-            <View
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:background="@drawable/circle_pink" />
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_akun"
+                    android:contentDescription="Transaksi"/>
+            </FrameLayout>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Akun" />
+                android:text="Akun"
+                android:layout_marginTop="5dp"/>
         </LinearLayout>
 
         <LinearLayout
@@ -180,16 +192,16 @@
             android:layout_columnWeight="1">
 
             <FrameLayout
-                android:layout_width="56dp"
-                android:layout_height="56dp"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
                 android:background="@drawable/circle_pink"
                 android:gravity="center">
 
                 <ImageView
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
                     android:layout_gravity="center"
-                    android:src="@drawable/ic_transaksi"
+                    android:src="@drawable/ic_produk"
                     android:contentDescription="Transaksi"/>
             </FrameLayout>
 
@@ -207,10 +219,111 @@
             android:layout_width="0dp"
             android:layout_columnWeight="1">
 
-            <View
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:background="@drawable/circle_pink"/>
+            <FrameLayout
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:background="@drawable/circle_pink"
+                android:gravity="center">
+
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_kategori"
+                    android:contentDescription="Transaksi"/>
+            </FrameLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Kategori"/>
+        </LinearLayout>
+
+    </GridLayout>
+
+    <GridLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:columnCount="3"
+        android:layout_margin="20dp"
+        app:layout_constraintTop_toBottomOf="@id/grid1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1">
+            =
+            <FrameLayout
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:background="@drawable/circle_pink"
+                android:gravity="center">
+
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_pegawai"
+                    android:contentDescription="Pegawai"/>
+            </FrameLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Pegawai" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_width="0dp"
+            android:layout_columnWeight="1">
+
+            <FrameLayout
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:background="@drawable/circle_pink"
+                android:gravity="center">
+
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_produk"
+                    android:contentDescription="Transaksi"/>
+            </FrameLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Produk"
+                android:textSize="12sp"
+                android:layout_marginTop="6dp"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_width="0dp"
+            android:layout_columnWeight="1">
+
+            <FrameLayout
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:background="@drawable/circle_pink"
+                android:gravity="center">
+
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_kategori"
+                    android:contentDescription="Transaksi"/>
+            </FrameLayout>
 
             <TextView
                 android:layout_width="wrap_content"
