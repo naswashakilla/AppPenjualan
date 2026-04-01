@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "146635895425",
+    "project_id": "penjualan-killa",
+    "storage_bucket": "penjualan-killa.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:146635895425:android:2d09faef2c3a0478d0d380",
+        "android_client_info": {
+          "package_name": "com.shakilla.penjualan"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBuAzjZ6osY25USglZrj9brow-icNSbhj0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
