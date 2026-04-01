@@ -18,9 +18,6 @@
             android:name=".kategori.DataKategori"
             android:exported="false" />
         <activity
-            android:name=".DataKategori"
-            android:exported="false" />
-        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>

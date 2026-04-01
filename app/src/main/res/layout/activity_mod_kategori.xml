@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    <ScrollView
+    android:id="@+id/modKategori"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -33,6 +35,7 @@
                 android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/tvJudul"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Tambah Kategori"
@@ -58,9 +61,7 @@
             android:orientation="vertical"
             android:background="#FFFFFF"
             android:elevation="4dp"
-            android:padding="24dp"
-            cardView_cardCornerRadius="16dp"
-            cardView_cardElevation="4dp">
+            android:padding="24dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -80,7 +81,7 @@
                     android:id="@+id/etNamaKategori"
                     android:layout_width="match_parent"
                     android:layout_height="48dp"
-                    android:background="@drawable/edit_text_background"
+                    android:background="@color/white"
                     android:paddingStart="16dp"
                     android:paddingEnd="16dp"
                     android:hint="Masukkan nama kategori"
@@ -96,6 +97,7 @@
                 android:layout_marginBottom="40dp">
 
                 <TextView
+                    android:id="@+id/tvStatusKategori"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Status Kategori"
@@ -104,10 +106,11 @@
                     android:layout_marginBottom="8dp" />
 
                 <Spinner
-                    android:id="@+id/spinnerStatus"
+                    android:id="@+id/spStatusKategori"
                     android:layout_width="match_parent"
                     android:layout_height="48dp"
-                    android:background="#" />
+                    android:entries="@array/status_array"
+                    android:background="@android:drawable/editbox_background" />
 
             </LinearLayout>
 
