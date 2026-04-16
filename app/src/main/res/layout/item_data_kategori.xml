@@ -19,11 +19,11 @@
         android:layout_height="wrap_content"
         android:padding="16dp">
 
+        <!-- Nama Kategori -->
         <ImageView
             android:id="@+id/imgKategori"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:background=""
             android:padding="8dp"
             android:src="@drawable/ic_kategori"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -31,7 +31,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/txtNamaKategori"
+            android:id="@+id/tvNamaKategori"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="Kategori"
@@ -44,6 +44,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/chipStatus"/>
 
+        <!-- Status -->
         <com.google.android.material.chip.Chip
             android:id="@+id/chipStatus"
             android:layout_width="wrap_content"

@@ -12,13 +12,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Penjualan">
         <activity
-            android:name=".kategori.ModKategori"
+            android:name=".kategori.ModKategoriActivity"
             android:exported="false" />
         <activity
-            android:name=".kategori.DataKategori"
-            android:exported="false" />
-        <activity
-            android:name=".DataKategori"
+            android:name=".kategori.DataKategoriActivity"
             android:exported="false" />
         <activity
             android:name=".MainActivity"
