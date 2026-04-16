@@ -1,13 +1,9 @@
 {
   "project_info": {
-    "project_number": "175834827729",
-    "project_id": "penjualan-595b9f54",
-    "storage_bucket": "penjualan-595b9f54.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:175834827729:android:0b5f6a9e84a1ba5de96ef0",
         "android_client_info": {
           "package_name": "com.shakilla.penjualan"
         }
@@ -15,7 +11,6 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyDmIyVJw_r2ECczH8h3m7rUrT0utfIcW6A"
         }
       ],
       "services": {
