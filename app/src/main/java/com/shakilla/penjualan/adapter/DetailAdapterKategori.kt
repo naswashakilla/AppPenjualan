@@ -61,3 +61,5 @@ class DetailAdapterKategori (private val kategoriList : List <ModelKategori>) :
         }
     }
 }
+
+//commit terakhir
