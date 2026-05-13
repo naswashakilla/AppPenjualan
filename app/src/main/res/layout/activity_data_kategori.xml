@@ -5,111 +5,67 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#F8F9FA"> <androidx.core.widget.NestedScrollView
+    android:id="@+id/nestedScroll"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
 
-    <!-- ================= SCROLL CONTAINER ================= -->
-    <androidx.core.widget.NestedScrollView
-        android:id="@+id/nestedScroll"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:fillViewport="true"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingBottom="80dp"> <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Kategori Produk"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:textColor="#212121"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginTop="24dp"/>
 
-        <LinearLayout
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilSearch"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_margin="16dp"
+            app:startIconDrawable="@android:drawable/ic_menu_search"
+            app:boxCornerRadiusTopStart="12dp"
+            app:boxCornerRadiusTopEnd="12dp"
+            app:boxCornerRadiusBottomStart="12dp"
+            app:boxCornerRadiusBottomEnd="12dp">
 
-            <!-- ================= SEARCH BAR ================= -->
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/tilSearch"
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etSearch"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="16dp"
-                app:boxCornerRadiusTopStart="12dp"
-                app:boxCornerRadiusTopEnd="12dp"
-                app:boxCornerRadiusBottomStart="12dp"
-                app:boxCornerRadiusBottomEnd="12dp">
+                android:hint="Cari kategori..."
+                android:inputType="text" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/etSearch"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Cari kategori..."
-                    android:inputType="text"
-                    android:padding="12dp"/>
-            </com.google.android.material.textfield.TextInputLayout>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvKategori"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:nestedScrollingEnabled="false"
+            tools:listitem="@layout/item_data_kategori" />
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>
 
-            <!-- ================= LIST DATA ================= -->
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rvData_Kategori"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:nestedScrollingEnabled="false"
-                android:paddingBottom="80dp"
-                tools:listitem="@layout/item_data_kategori"/>
-        </LinearLayout>
-    </androidx.core.widget.NestedScrollView>
-
-    <!-- ================= FAB ================= -->
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fabAdd"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:contentDescription="Tambah Kategori"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/searchLayout"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        app:boxCornerRadiusTopStart="12dp"
-        app:boxCornerRadiusTopEnd="12dp"
-        app:boxCornerRadiusBottomStart="12dp"
-        app:boxCornerRadiusBottomEnd="12dp"
-        app:startIconDrawable="@drawable/ic_search"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/etSearchKategori"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Cari kategori..."
-            android:inputType="text"/>
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvData_Kategori"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginTop="4dp"
-        android:contentDescription="Lihat Kategori"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/searchLayout"
-        app:layout_constraintVertical_bias="0.0"
-        tools:listitem="@layout/item_data_kategori" />
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fabTambahKategori"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
+        android:layout_margin="24dp"
         android:contentDescription="Tambah Kategori"
         android:src="@drawable/ic_plus"
+        app:tint="@android:color/white"
+        app:backgroundTint="#673AB7"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

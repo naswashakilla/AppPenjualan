@@ -38,7 +38,7 @@ class DataKategoriActivity : AppCompatActivity() {
     }
 
     private fun init() {
-        recyclerView = findViewById(R.id.rvData_Kategori)
+        recyclerView = findViewById(R.id.rvKategori)
         fabAdd = findViewById(R.id.fabAdd)
 
         recyclerView.layoutManager = LinearLayoutManager(this)

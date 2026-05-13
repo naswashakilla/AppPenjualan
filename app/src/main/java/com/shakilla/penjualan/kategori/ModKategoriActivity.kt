@@ -1,8 +1,7 @@
 package com.shakilla.penjualan.kategori
 
 import android.os.Bundle
-import android.widget.ArrayAdapter
-import android.widget.AutoCompleteTextView
+import android.util.Log
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
@@ -11,21 +10,17 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.google.android.material.button.MaterialButton
+import com.google.android.material.chip.ChipGroup
+import com.google.firebase.database.FirebaseDatabase
 import com.shakilla.penjualan.R
 import com.shakilla.penjualan.model.ModelKategori
-import com.google.android.material.button.MaterialButton
-import com.google.android.material.chip.Chip
-import com.google.android.material.textfield.TextInputEditText
-import com.google.android.material.textfield.TextInputLayout
-import com.google.firebase.database.FirebaseDatabase
 
 class ModKategoriActivity : AppCompatActivity() {
 
-    // Deklarasi variabel dengan tipe yang jelas
     private lateinit var tvJudul: TextView
     private lateinit var etNamaKategori: EditText
-    private lateinit var chipStatus: Chip
-    private lateinit var autoCompleteStatus: AutoCompleteTextView
+    private lateinit var cgStatus: ChipGroup // Tambahkan ChipGroup
     private lateinit var btnSimpan: MaterialButton
     private lateinit var btnBack: ImageView
 
@@ -33,7 +28,6 @@ class ModKategoriActivity : AppCompatActivity() {
     private val database = FirebaseDatabase.getInstance("https://penjualan-595b9f54-default-rtdb.asia-southeast1.firebasedatabase.app/")
     private val myRef = database.getReference("kategori")
 
-    // Variabel untuk menampung data yang akan diedit
     private var kategoriId: String? = null
     private var kategoriNama: String? = null
     private var kategoriStatus: String? = null
@@ -49,9 +43,7 @@ class ModKategoriActivity : AppCompatActivity() {
         enableEdgeToEdge()
         setContentView(R.layout.activity_mod_kategori)
 
-        // Perbaikan: Gunakan root view yang benar, misalnya ConstraintLayout utama
-        // val rootView = findViewById<androidx.constraintlayout.widget.ConstraintLayout>(R.id.main)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.modKategori)) { v, insets ->
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
@@ -59,70 +51,40 @@ class ModKategoriActivity : AppCompatActivity() {
 
         init()
         getIntentData()
-        setupSpinner()
         setupClickListeners()
-        updateTitle()
     }
 
     private fun init() {
-        // Inisialisasi semua view dengan ID yang benar dari XML
-        //tvJudul = findViewById(R.id.tvJudul)
+        tvJudul = findViewById(R.id.tvJudul)
         etNamaKategori = findViewById(R.id.etNamaKategori)
-        //spStatusKategori = findViewById(R.id.spStatusKategori)
-
-        // Perbaikan: Ambil AutoCompleteTextView dari dalam TextInputLayout
-        //autoCompleteStatus = findViewById(R.id.autoCompleteStatus)
-
+        cgStatus = findViewById(R.id.cgStatus) // Inisialisasi ChipGroup
         btnSimpan = findViewById(R.id.btnSimpan)
         btnBack = findViewById(R.id.btnBack)
     }
 
     private fun getIntentData() {
-        // Ambil data dari intent jika ada (mode edit)
-        kategoriId = intent.getStringExtra(EXTRA_ID)
-        kategoriNama = intent.getStringExtra(EXTRA_NAMA)
-        kategoriStatus = intent.getStringExtra(EXTRA_STATUS)
-
-        // Jika mode edit, tampilkan data yang ada
-        if (kategoriId != null) {
-            etNamaKategori.setText(kategoriNama)
+        val nama = etNamaKategori.text.toString().trim()
+        if (nama.isEmpty()) {
+            etNamaKategori.error = "Wajib diisi"
+            return
         }
-    }
 
-    private fun updateTitle() {
-        // Perbaikan: Gunakan tvJudul (bukan tvJuduI)
-        //tvJudul.text = if (kategoriId == null) "Tambah Kategori" else "Edit Kategori"
-    }
+        // Mengambil status dari Chip: jika Aktif terpilih kirim "1", selain itu "0"
+        val statusSimpan = if (cgStatus.checkedChipId == R.id.chipAktif) "1" else "0"
 
-    private fun setupSpinner() {
-        // Data untuk spinner
-        val listStatus = arrayOf("Aktif", "Tidak Aktif")
+        val idInput = kategoriId ?: myRef.push().key ?: ""
+        val data = ModelKategori(idInput, nama, statusSimpan)
 
-        // Buat adapter dengan tipe yang jelas
-        val adapter = ArrayAdapter<String>(
-            this,
-            android.R.layout.simple_dropdown_item_1line,
-            listStatus
-        )
-
-        // Set adapter ke AutoCompleteTextView
-        //autoCompleteStatus.setAdapter(adapter)
-
-        // Set item yang dipilih jika mode edit
-        if (kategoriStatus != null) {
-            //autoCompleteStatus.setText(kategoriStatus, false)
+        myRef.child(idInput).setValue(data).addOnSuccessListener {
+            Toast.makeText(this, "Berhasil!", Toast.LENGTH_SHORT).show()
+            finish()
         }
     }
 
     private fun setupClickListeners() {
-        // Tombol back
-        btnBack.setOnClickListener {
-            finish()
-        }
+        btnBack.setOnClickListener { finish() }
 
-        // Tombol simpan
         btnSimpan.setOnClickListener {
-            //Toast.makeText(this, "Simpan diklik", Toast.LENGTH_SHORT).show()
             simpanData()
         }
     }
@@ -130,82 +92,35 @@ class ModKategoriActivity : AppCompatActivity() {
     private fun simpanData() {
         val nama = etNamaKategori.text.toString().trim()
 
-        // 1. Validasi Input (Penting!)
+        // 1. Validasi Input
         if (nama.isEmpty()) {
             etNamaKategori.error = "Nama kategori tidak boleh kosong"
             return
         }
 
-        // 2. Tentukan apakah ini Mode Tambah atau Mode Edit
+        // 2. Ambil status dari Chip yang dipilih
+        // Jika chipAktif yang dipilih, simpan "1", selain itu "0"
+        val statusSimpan = if (cgStatus.checkedChipId == R.id.chipAktif) "1" else "0"
+
+        // 3. Tentukan ID (Baru atau Edit)
         val idInput = kategoriId ?: myRef.push().key ?: ""
 
-        // 3. Susun Objek (Sesuaikan parameter dengan ModelKategori kamu)
+        // 4. Susun Objek
         val data = ModelKategori(
             idKategori = idInput,
             namaKategori = nama,
-            statusKategori = "1" // Default Aktif
+            statusKategori = statusSimpan
         )
 
-        // 4. Proses Simpan
+        // 5. Proses Simpan ke Firebase
         myRef.child(idInput).setValue(data)
             .addOnSuccessListener {
                 Toast.makeText(this, "Data berhasil disimpan!", Toast.LENGTH_SHORT).show()
-                finish() // Tutup halaman
+                finish()
             }
             .addOnFailureListener { e ->
-                // Ini akan memberitahu jika ada masalah koneksi/permission
                 Toast.makeText(this, "Gagal: ${e.message}", Toast.LENGTH_LONG).show()
-                android.util.Log.e("FIREBASE", "Error: ", e)
+                Log.e("FIREBASE", "Error: ", e)
             }
     }
-
-//        if (status.isEmpty()) {
-//            autoCompleteStatus.error = "Status harus dipilih"
-//            autoCompleteStatus.requestFocus()
-//            return
-//        }
-
-//        if (kategoriId == null) {
-//            // Mode TAMBAH data baru
-//            val id = myRef.push().key
-//
-//            if (id == null) {
-//                Toast.makeText(this, "Gagal membuat ID", Toast.LENGTH_SHORT).show()
-//                return
-//            }
-//
-//            // Buat objek kategori
-//            val kategori = ModelKategori(
-//                idKategori = id,
-//                namaKategori = nama,
-//                statusKategori = "1"
-//            )
-//
-//            // Simpan ke Firebase
-//            myRef.child(id).setValue(kategori)
-//                .addOnSuccessListener {
-//                    Toast.makeText(this, "Data kategori berhasil disimpan", Toast.LENGTH_SHORT).show()
-//                    finish()
-//                }
-//                .addOnFailureListener { e ->
-//                    Toast.makeText(this, "Gagal menyimpan data: ${e.message}", Toast.LENGTH_SHORT).show()
-//                }
-//        } else {
-//            // Mode EDIT data yang sudah ada
-//            val kategori = ModelKategori(
-//                idKategori = kategoriId!!,
-//                namaKategori = nama,
-//                statusKategori = "1"
-//            )
-//
-//            // Update data di Firebase
-//            myRef.child(kategoriId!!).setValue(kategori)
-//                .addOnSuccessListener {
-//                    Toast.makeText(this, "Data kategori berhasil diupdate", Toast.LENGTH_SHORT).show()
-//                    finish()
-//                }
-//                .addOnFailureListener { e ->
-//                    Toast.makeText(this, "Gagal mengupdate data: ${e.message}", Toast.LENGTH_SHORT).show()
-//                }
-//        }
-    }
+}

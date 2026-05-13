@@ -1,130 +1,123 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFFFFF">
+    android:orientation="vertical"
+    android:padding="20dp"
+    android:background="#F8F9FA">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="20dp">
+        android:layout_marginBottom="24dp">
 
-        <LinearLayout
-            android:layout_width="match_parent"
+        <ImageView
+            android:id="@+id/btnBack"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:padding="8dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:src="@drawable/ic_back" /> <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@id/btnBack"
+        android:layout_marginStart="12dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tvJudul"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginBottom="40dp"
-            android:gravity="center_vertical">
+            android:text="Tambah Kategori"
+            android:textColor="#212121"
+            android:textSize="22sp"
+            android:textStyle="bold" />
 
-            <ImageView
-                android:id="@+id/btnBack"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:src="@drawable/ic_back"
-                android:layout_marginEnd="16dp"
-                app:tint="#000000" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Point of Sales"
+            android:textColor="#757575"
+            android:textSize="14sp" />
+    </LinearLayout>
+    </RelativeLayout>
 
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Tambah Kategori"
-                    android:textSize="24sp"
-                    android:textColor="#000000"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Point Of Sales"
-                    android:textSize="14sp"
-                    android:textColor="#666666"
-                    android:layout_marginTop="4dp" />
-
-            </LinearLayout>
-
-        </LinearLayout>
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="16dp"
+        app:cardElevation="4dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:background="#FFFFFF"
-            android:elevation="4dp"
-            android:padding="24dp"
-            cardView_cardCornerRadius="16dp"
-            cardView_cardElevation="4dp">
+            android:padding="16dp">
 
-            <LinearLayout
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_marginBottom="24dp">
+                android:hint="Nama Kategori"
+                app:boxCornerRadiusBottomEnd="12dp"
+                app:boxCornerRadiusBottomStart="12dp"
+                app:boxCornerRadiusTopEnd="12dp"
+                app:boxCornerRadiusTopStart="12dp">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Nama Kategori"
-                    android:textSize="16sp"
-                    android:textColor="#333333"
-                    android:layout_marginBottom="8dp" />
-
-                <EditText
+                <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/etNamaKategori"
                     android:layout_width="match_parent"
-                    android:layout_height="48dp"
-                    android:background="@drawable/edit_text_background"
-                    android:paddingStart="16dp"
-                    android:paddingEnd="16dp"
-                    android:hint="Masukkan nama kategori"
-                    android:textSize="16sp"
-                    android:textColor="#000000" />
+                    android:layout_height="wrap_content"
+                    android:inputType="textCapWords" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-            </LinearLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Status"
+                android:textSize="14sp"
+                android:textColor="#757575"
+                android:layout_marginBottom="12dp"/>
 
-            <LinearLayout
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/cgStatus"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_marginBottom="40dp">
+                app:singleSelection="true"
+                app:selectionRequired="true">
 
-                <TextView
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chipAktif"
+                    style="@style/Widget.MaterialComponents.Chip.Choice"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Status Kategori"
-                    android:textSize="16sp"
-                    android:textColor="#333333"
-                    android:layout_marginBottom="8dp" />
+                    android:text="Aktif"
+                    app:chipCornerRadius="8dp"
+                    android:checked="true" />
 
-                <Spinner
-                    android:id="@+id/spinnerStatus"
-                    android:layout_width="match_parent"
-                    android:layout_height="48dp"
-                    android:background="#" />
-
-            </LinearLayout>
-
-            <Button
-                android:id="@+id/btnSimpan"
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:background="#2E7D32"
-                android:text="Simpan"
-                android:textColor="#FFFFFF"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                android:gravity="center"
-                android:elevation="2dp" />
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chipNonAktif"
+                    style="@style/Widget.MaterialComponents.Chip.Choice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:chipCornerRadius="8dp"
+                    android:text="Tidak Aktif" />
+            </com.google.android.material.chip.ChipGroup>
 
         </LinearLayout>
+    </androidx.cardview.widget.CardView>
 
-    </LinearLayout>
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnSimpan"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:layout_marginTop="32dp"
+        android:text="Simpan Data"
+        android:textAllCaps="false"
+        android:textSize="16sp"
+        app:cornerRadius="12dp"
+        android:backgroundTint="#673AB7"/>
 
-</ScrollView>
+</LinearLayout>

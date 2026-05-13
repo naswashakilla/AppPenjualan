@@ -14,6 +14,7 @@ import com.shakilla.penjualan.model.ModelKategori
 class DetailAdapterKategori (private val kategoriList : List <ModelKategori>) :
     RecyclerView.Adapter<DetailAdapterKategori.KategoriViewHolder>(){
     lateinit var appContext: Context
+
     interface OnItemClickListener {
         fun onItemClick (kategori: ModelKategori)
     }
@@ -31,7 +32,9 @@ class DetailAdapterKategori (private val kategoriList : List <ModelKategori>) :
         viewType: Int
     ): KategoriViewHolder {
 
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_data_kategori, parent, false)
+        val view = LayoutInflater.from(parent.context)
+            .inflate(R.layout.item_data_kategori, parent, false)
+
         appContext = parent.context
         return KategoriViewHolder(view)
     }

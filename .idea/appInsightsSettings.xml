@@ -8,10 +8,10 @@
             <InsightsFilterSettings>
               <option name="connection">
                 <ConnectionSetting>
-                  <option name="appId" value="PLACEHOLDER" />
-                  <option name="mobileSdkAppId" value="" />
-                  <option name="projectId" value="" />
-                  <option name="projectNumber" value="" />
+                  <option name="appId" value="com.shakilla.penjualan" />
+                  <option name="mobileSdkAppId" value="1:175834827729:android:0b5f6a9e84a1ba5de96ef0" />
+                  <option name="projectId" value="penjualan-595b9f54" />
+                  <option name="projectNumber" value="175834827729" />
                 </ConnectionSetting>
               </option>
               <option name="signal" value="SIGNAL_UNSPECIFIED" />

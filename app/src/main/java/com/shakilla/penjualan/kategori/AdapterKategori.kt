@@ -14,7 +14,7 @@ package com.shakilla.penjualan.kategori
         RecyclerView.Adapter<AdapterKategori.ViewHolder>() {
 
         class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-            val tvNama: TextView = itemView.findViewById(R.id.txtNamaKategori)
+            val tvNama: TextView = itemView.findViewById(R.id.tvNamaKategori)
             val chipStatus: Chip = itemView.findViewById(R.id.chipStatus)
         }
 
