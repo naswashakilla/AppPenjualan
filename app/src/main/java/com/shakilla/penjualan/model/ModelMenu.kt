@@ -6,6 +6,7 @@ data class ModelMenu(
     val harga: String? = null,
     val stok: String? = null,
     val cabang: String? = null,
+    val kategori: String? = null,
     val status: String? = null,
     val urlFoto: String? = null
 ) {

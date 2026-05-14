@@ -18,6 +18,7 @@ class ModMenuActivity : AppCompatActivity() {
     private lateinit var etStok: TextInputEditText
     private lateinit var etUrlFoto: TextInputEditText
     private lateinit var actvCabang: AutoCompleteTextView
+    private lateinit var actvKategori: AutoCompleteTextView
     private lateinit var cgStatus: ChipGroup
     private lateinit var btnSimpan: MaterialButton
 
@@ -41,6 +42,7 @@ class ModMenuActivity : AppCompatActivity() {
         etStok = findViewById(R.id.etStok)
         etUrlFoto = findViewById(R.id.etUrlFoto) // Input URL manual
         actvCabang = findViewById(R.id.actvCabang)
+        actvKategori = findViewById(R.id.actvKategori)
         cgStatus = findViewById(R.id.cgStatus)
         btnSimpan = findViewById(R.id.btnSimpan)
     }

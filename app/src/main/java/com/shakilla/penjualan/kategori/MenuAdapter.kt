@@ -10,7 +10,6 @@ import com.bumptech.glide.Glide
 import com.google.android.material.chip.Chip
 import com.shakilla.penjualan.R
 import com.shakilla.penjualan.model.ModelMenu
-
 class MenuAdapter(private var listMenu: List<ModelMenu>) :
     RecyclerView.Adapter<MenuAdapter.MenuViewHolder>() {
 
@@ -20,6 +19,7 @@ class MenuAdapter(private var listMenu: List<ModelMenu>) :
         val tvHarga: TextView = itemView.findViewById(R.id.tvItemHarga)
         val tvStok: TextView = itemView.findViewById(R.id.tvItemStok)
         val tvCabang: TextView = itemView.findViewById(R.id.tvItemCabang)
+        val tvKategori: TextView=itemView.findViewById(R.id.tvItemKategori)
         val chipStatus: Chip = itemView.findViewById(R.id.chipItemStatus)
     }
 
@@ -35,6 +35,7 @@ class MenuAdapter(private var listMenu: List<ModelMenu>) :
         holder.tvHarga.text = "Rp ${menu.harga}"
         holder.tvStok.text = "Stok: ${menu.stok}"
         holder.tvCabang.text = menu.cabang
+        holder.tvKategori.text = menu.kategori
 
         // Set Status
         if (menu.status == "1") {
@@ -48,7 +49,7 @@ class MenuAdapter(private var listMenu: List<ModelMenu>) :
         // Load Gambar menggunakan Glide
         Glide.with(holder.itemView.context)
             .load(menu.urlFoto)
-            .placeholder(R.drawable.ic_food_placeholder) // Gambar sementara saat loading
+            .placeholder(R.drawable.ic_search) // Gambar sementara saat loading
             .into(holder.ivFoto)
     }
 
