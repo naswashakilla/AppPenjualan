@@ -92,27 +92,21 @@ class ModKategoriActivity : AppCompatActivity() {
     private fun simpanData() {
         val nama = etNamaKategori.text.toString().trim()
 
-        // 1. Validasi Input
         if (nama.isEmpty()) {
             etNamaKategori.error = "Nama kategori tidak boleh kosong"
             return
         }
 
-        // 2. Ambil status dari Chip yang dipilih
-        // Jika chipAktif yang dipilih, simpan "1", selain itu "0"
         val statusSimpan = if (cgStatus.checkedChipId == R.id.chipAktif) "1" else "0"
-
-        // 3. Tentukan ID (Baru atau Edit)
         val idInput = kategoriId ?: myRef.push().key ?: ""
 
-        // 4. Susun Objek
+        // Pastikan field di ModelKategori kamu adalah 'namaKategori'
         val data = ModelKategori(
             idKategori = idInput,
             namaKategori = nama,
             statusKategori = statusSimpan
         )
 
-        // 5. Proses Simpan ke Firebase
         myRef.child(idInput).setValue(data)
             .addOnSuccessListener {
                 Toast.makeText(this, "Data berhasil disimpan!", Toast.LENGTH_SHORT).show()
@@ -120,7 +114,7 @@ class ModKategoriActivity : AppCompatActivity() {
             }
             .addOnFailureListener { e ->
                 Toast.makeText(this, "Gagal: ${e.message}", Toast.LENGTH_LONG).show()
-                Log.e("FIREBASE", "Error: ", e)
             }
+
     }
 }

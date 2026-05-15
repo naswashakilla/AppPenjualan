@@ -3,43 +3,60 @@ package com.shakilla.penjualan.kategori
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.shakilla.penjualan.R
 import com.shakilla.penjualan.model.ModelKategori
-import com.google.android.material.card.MaterialCardView
-import com.google.android.material.chip.Chip
+import java.util.*
+import kotlin.collections.ArrayList
 
 class KategoriAdapter(
-    private val listKategori: List<ModelKategori>,
+    private var listKategoriFull: ArrayList<ModelKategori>,
     private val onItemClick: (ModelKategori) -> Unit
 ) : RecyclerView.Adapter<KategoriAdapter.KategoriViewHolder>() {
 
+    // List yang akan ditampilkan ke layar
+    private var listKategoriDisplay: List<ModelKategori> = listKategoriFull
+
     class KategoriViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val cardKategori: MaterialCardView = itemView.findViewById(R.id.cardKategori)
-        val tvNamaKategori: TextView = itemView.findViewById(R.id.tvNamaKategori)
-        val chipStatus: Chip = itemView.findViewById(R.id.chipStatus)
+        val tvNama: TextView = itemView.findViewById(R.id.tvNamaKategori)
+        val tvStatus: TextView = itemView.findViewById(R.id.chipStatus)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): KategoriViewHolder {
-        val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_data_kategori, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_data_kategori, parent, false)
         return KategoriViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: KategoriViewHolder, position: Int) {
-        val kategori = listKategori[position]
+        val kategori = listKategoriDisplay[position]
 
-        // Set data ke view
-        holder.tvNamaKategori.text = kategori.namaKategori
-        holder.chipStatus.text = kategori.statusKategori
+        // Gunakan Safe Call ?. untuk menghindari crash jika data null
+        holder.tvNama.text = kategori.namaKategori ?: "-"
+        holder.tvStatus.text = if (kategori.statusKategori == "1") "Aktif" else "Tidak Aktif"
 
-        // Klik pada card
-        holder.cardKategori.setOnClickListener {
-            onItemClick(kategori)
-        }
+        holder.itemView.setOnClickListener { onItemClick(kategori) }
     }
 
-    override fun getItemCount(): Int = listKategori.size
+    override fun getItemCount(): Int = listKategoriDisplay.size
+
+    // Fungsi untuk update data dari Firebase
+    fun updateData(newList: ArrayList<ModelKategori>) {
+        listKategoriFull = newList
+        listKategoriDisplay = newList
+        notifyDataSetChanged()
+    }
+
+    // Fungsi Pencarian
+    fun filter(query: String) {
+        val pattern = query.lowercase(Locale.getDefault()).trim()
+        listKategoriDisplay = if (pattern.isEmpty()) {
+            listKategoriFull
+        } else {
+            listKategoriFull.filter {
+                it.namaKategori?.lowercase(Locale.getDefault())?.contains(pattern) ?: false
+            }
+        }
+        notifyDataSetChanged()
+    }
 }

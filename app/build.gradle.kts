@@ -43,19 +43,17 @@ dependencies {
     implementation(libs.androidx.activity.ktx)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
-    implementation(libs.firebase.storage.ktx)
     implementation(libs.material)
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
-    implementation("com.google.firebase:firebase-storage-ktx")
     implementation("com.github.bumptech.glide:glide:4.12.0")
     kapt("com.github.bumptech.glide:compiler:4.12.0")
+    implementation("com.google.firebase:firebase-auth-ktx:23.0.0")
+    // Import the BoM for the Firebase platform
+    implementation(platform("com.google.firebase:firebase-bom:33.1.0"))
 
-
-    // Gunakan Firebase BoM (Satu baris untuk mengatur semua versi Firebase)
-    implementation(platform("com.google.firebase:firebase-bom:33.0.0"))
-
-    // Panggil library tanpa versi (otomatis ikut versi BoM)
+    // Tambahkan storage tanpa menulis nomor versi
+    implementation("com.google.firebase:firebase-storage-ktx")
     implementation("com.google.firebase:firebase-database-ktx")
 
     testImplementation(libs.junit)

@@ -12,6 +12,21 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Penjualan">
         <activity
+            android:name=".TransaksiActivity"
+            android:exported="false" />
+        <activity
+            android:name=".pegawai.TambahPegawaiActivity"
+            android:exported="false" />
+        <activity
+            android:name=".pegawai.DataPegawaiActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ProfileActivity"
+            android:exported="false" />
+        <activity
+            android:name=".RegisterActivity"
+            android:exported="false" />
+        <activity
             android:name=".kategori.DataMenuActivity"
             android:exported="false" />
         <activity
@@ -24,7 +39,7 @@
             android:name=".kategori.DataKategoriActivity"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".LoginActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -32,6 +47,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".MainActivity" />
     </application>
 
 </manifest>
