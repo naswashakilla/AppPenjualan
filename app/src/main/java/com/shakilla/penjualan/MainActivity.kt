@@ -31,6 +31,7 @@ class MainActivity : AppCompatActivity() {
         val btnProduk: CardView = findViewById(R.id.btnMenuProduk)
         val btnKategori:  CardView = findViewById(R.id.btnMenuKategori)
         val btnPegawai: CardView = findViewById(R.id.btnMenuPegawai)
+        val btnTransaksi: LinearLayout = findViewById(R.id.btnMenuTransaksi)
 
         // Logika Klik Tombol Produk
         btnProduk.setOnClickListener {
@@ -46,6 +47,10 @@ class MainActivity : AppCompatActivity() {
 
         btnPegawai.setOnClickListener {
             startActivity(Intent(this, DataPegawaiActivity::class.java))
+        }
+
+        btnTransaksi.setOnClickListener {
+            startActivity(Intent(this,TransaksiActivity::class.java))
         }
     }
 

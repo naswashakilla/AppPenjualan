@@ -5,8 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="4dp"
-    app:cardCornerRadius="8dp"
-    app:cardElevation="2dp">
+    app:cardCornerRadius="12dp"
+    app:cardElevation="2dp"
+    app:cardBackgroundColor="#FFFFFF">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -20,6 +21,7 @@
             android:layout_height="80dp"
             android:scaleType="centerCrop"
             android:src="@drawable/ic_launcher_background"
+            android:background="#F3EDF9"
             android:contentDescription="Gambar Menu" />
 
         <TextView
@@ -30,7 +32,7 @@
             android:text="Nama Menu"
             android:textSize="13sp"
             android:textStyle="bold"
-            android:textColor="#333333"
+            android:textColor="#212121"
             android:maxLines="2"
             android:ellipsize="end" />
 
@@ -41,18 +43,28 @@
             android:layout_marginTop="2dp"
             android:text="Rp 0"
             android:textSize="12sp"
-            android:textColor="#7B2FBE" />
+            android:textColor="#673AB7"
+            android:textStyle="bold" />
 
-        <Button
+        <TextView
+            android:id="@+id/tvStokMenu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Stok: 0"
+            android:textSize="11sp"
+            android:textColor="#9E9E9E" />
+
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/btnTambah"
             android:layout_width="match_parent"
             android:layout_height="32dp"
             android:layout_marginTop="6dp"
             android:text="+ Tambah"
             android:textSize="12sp"
+            android:textAllCaps="false"
             android:textColor="#FFFFFF"
-            android:backgroundTint="#E53935"
-            android:stateListAnimator="@null"
+            android:backgroundTint="#673AB7"
+            app:cornerRadius="8dp"
             android:paddingStart="0dp"
             android:paddingEnd="0dp" />
 

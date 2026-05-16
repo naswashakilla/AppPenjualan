@@ -97,16 +97,18 @@ class ModMenuActivity : AppCompatActivity() {
     }
     private fun simpanData() {
         val nama = etNama.text.toString().trim()
-        val harga = etHarga.text.toString().trim()
-        val stok = etStok.text.toString().trim()
+        val hargaText = etHarga.text.toString()
+        val stokText = etStok.text.toString()
         val url = etUrlFoto.text.toString().trim()
         val cabang = actvCabang.text.toString()
         val kategori = actvKategori.text.toString()
 
-        // Ambil status dari Chip
+        val harga = hargaText.toLongOrNull() ?: 0L
+        val stok = stokText.toIntOrNull() ?: 0
+
         val status = if (cgStatus.checkedChipId == R.id.chipAktif) "1" else "0"
 
-        if (nama.isEmpty() || harga.isEmpty()) {
+        if (nama.isEmpty() || harga <= 0L) {
             Toast.makeText(this, "Nama dan Harga wajib diisi", Toast.LENGTH_SHORT).show()
             return
         }
