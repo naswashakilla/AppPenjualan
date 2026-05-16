@@ -40,6 +40,7 @@ class TransaksiActivity : AppCompatActivity() {
     private lateinit var btnHapusSemua: MaterialButton
     private lateinit var btnRiwayat: ImageButton
     private lateinit var pbLoading: ProgressBar
+    private lateinit var btnCetak: Button
 
     private lateinit var menuAdapter: MenuTransaksiAdapter
     private lateinit var pesananAdapter: PesananAdapter
@@ -50,6 +51,7 @@ class TransaksiActivity : AppCompatActivity() {
     private val kategoriList  = mutableListOf<String>()
     private var kategoriAktif = "Semua"
     private var diskon: Long  = 0L
+    private var totalBayar: Long = 0
 
     // Firebase — URL sama dengan ModMenuActivity
     private val database = FirebaseDatabase.getInstance(
@@ -80,6 +82,7 @@ class TransaksiActivity : AppCompatActivity() {
         btnHapusSemua    = findViewById(R.id.btnHapusSemua)
         btnRiwayat       = findViewById(R.id.btnRiwayat)
         pbLoading        = findViewById(R.id.pbLoading)
+        btnCetak         = findViewById(R.id.btnCetak)
 
         val etSearch = findViewById<com.google.android.material.textfield.TextInputEditText>(R.id.etSearch)
         etSearch.addTextChangedListener(object : TextWatcher {
@@ -198,12 +201,14 @@ class TransaksiActivity : AppCompatActivity() {
         }
 
         btnCetak.setOnClickListener {
-            val total = totalBayar
-            cetakStruk(total, adapter.listPesanan)
+            if (listPesanan.isEmpty()) {
+                Toast.makeText(this, "Tidak ada pesanan untuk dicetak", Toast.LENGTH_SHORT).show()
+            } else {
+                cetakStruk(totalBayar, listPesanan)
+            }
         }
     }
 
-    // ── Filter Menu (kategori + search) ──────────────────────────────────────
     private fun filterMenu() {
         val etSearch = findViewById<TextInputEditText>(R.id.etSearch)
         val query = etSearch.text.toString().trim().lowercase()
@@ -243,7 +248,6 @@ class TransaksiActivity : AppCompatActivity() {
         updateTotal()
     }
 
-    // ── Update Total ──────────────────────────────────────────────────────────
     private fun updateTotal() {
         val subtotal = listPesanan.sumOf { it.subtotal }
         val total    = subtotal - diskon
@@ -307,26 +311,39 @@ class TransaksiActivity : AppCompatActivity() {
     }
 
     private fun simpanTransaksi(total: Long, bayar: Long, catatan: String) {
-        // TODO: simpan ke node "transaksi" di Firebase
-        // Contoh struktur:
-        // val transaksiRef = database.getReference("transaksi")
-        // val id = transaksiRef.push().key ?: ""
-        // val data = mapOf(
-        //     "id"       to id,
-        //     "tanggal"  to SimpleDateFormat("dd-MM-yyyy HH:mm", Locale.getDefault()).format(Date()),
-        //     "items"    to listPesanan.map { mapOf("nama" to it.menu.nama, "jumlah" to it.jumlah, "subtotal" to it.subtotal) },
-        //     "total"    to total,
-        //     "bayar"    to bayar,
-        //     "kembalian" to (bayar - total),
-        //     "catatan"  to catatan
-        // )
-        // transaksiRef.child(id).setValue(data)
+        val transaksiRef = database.getReference("transaksi")
+        val id = transaksiRef.push().key ?: ""
 
-        Toast.makeText(this, "Transaksi berhasil! Kembalian: ${formatRupiah(bayar - total)}", Toast.LENGTH_LONG).show()
+        val data = mapOf(
+            "id" to id,
+            "tanggal" to java.text.SimpleDateFormat("dd-MM-yyyy HH:mm", Locale.getDefault()).format(java.util.Date()),
+            "items" to listPesanan.map { mapOf("namaProduk" to it.menu.namaProduk, "jumlah" to it.jumlah, "subtotal" to it.subtotal) },
+            "total" to total,
+            "bayar" to bayar,
+            "kembalian" to (bayar - total),
+            "catatan" to catatan
+        )
 
-        listPesanan.clear()
-        pesananAdapter.notifyDataSetChanged()
-        updateTotal()
+        transaksiRef.child(id).setValue(data).addOnSuccessListener {
+            Toast.makeText(this, "Transaksi Berhasil!", Toast.LENGTH_SHORT).show()
+
+            // Tampilkan pilihan cetak setelah sukses simpan
+            AlertDialog.Builder(this)
+                .setTitle("Transaksi Sukses")
+                .setMessage("Apakah ingin mencetak struk?")
+                .setPositiveButton("Cetak") { _, _ ->
+                    cetakStruk(total, listPesanan)
+                    listPesanan.clear()
+                    pesananAdapter.notifyDataSetChanged()
+                    updateTotal()
+                }
+                .setNegativeButton("Nanti") { _, _ ->
+                    listPesanan.clear()
+                    pesananAdapter.notifyDataSetChanged()
+                    updateTotal()
+                }
+                .show()
+        }
     }
 
     private fun formatRupiah(amount: Long): String {
