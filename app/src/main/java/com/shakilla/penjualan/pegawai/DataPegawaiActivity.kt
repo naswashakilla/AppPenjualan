@@ -50,8 +50,31 @@ class DataPegawaiActivity : AppCompatActivity() {
     private fun setupRecyclerView() {
         // Inisialisasi dengan list kosong di awal
         adapter = PegawaiAdapter(mutableListOf(),
-            onEdit = { pegawai -> /* intent edit tetap sama */ },
-            onHapus = { pegawai -> /* dialog hapus tetap sama */ }
+            onEdit = { pegawai ->
+                val intent = Intent(this, TambahPegawaiActivity::class.java).apply {
+                    putExtra("mode", "edit")
+                    putExtra("id", pegawai.id)
+                    putExtra("nama", pegawai.nama)
+                    putExtra("email", pegawai.email)
+                    putExtra("telp", pegawai.telp)
+                    putExtra("jabatan", pegawai.jabatan)
+                    putExtra("gaji", pegawai.gaji)
+                    putExtra("fotoUrl", pegawai.fotoUrl)
+                }
+                startActivity(intent)
+            },
+            onHapus = { pegawai ->
+                AlertDialog.Builder(this)
+                    .setTitle("Hapus Pegawai")
+                    .setMessage("Apakah Anda yakin ingin menghapus ${pegawai.nama}?")
+                    .setPositiveButton("Ya") { _, _ ->
+                        dbRef.child(pegawai.id).removeValue().addOnSuccessListener {
+                            android.widget.Toast.makeText(this, "Pegawai berhasil dihapus", android.widget.Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                    .setNegativeButton("Tidak", null)
+                    .show()
+            }
         )
 
         findViewById<RecyclerView>(R.id.rvPegawai).apply {
@@ -95,5 +118,3 @@ class DataPegawaiActivity : AppCompatActivity() {
         })
     }
 }
-
-private fun PegawaiAdapter.updateData(listPegawaiMaster: MutableList<Pegawai>) {}
