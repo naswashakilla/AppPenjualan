@@ -8,6 +8,7 @@ import android.webkit.WebView
 import android.webkit.WebViewClient
 import android.widget.ImageButton
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -57,10 +58,15 @@ class RiwayatActivity : AppCompatActivity() {
                     // Urutkan dari transaksi terbaru (paling atas)
                     listRiwayat.reverse()
 
-                    // Inisialisasi adapter dengan callback untuk tombol cetak
-                    val adapter = RiwayatAdapter(listRiwayat) { transaksi ->
-                        cetakUlangStruk(transaksi)
-                    }
+                    // Inisialisasi adapter dengan callback untuk tombol cetak dan hapus
+                    val adapter = RiwayatAdapter(listRiwayat, 
+                        onPrintClick = { transaksi ->
+                            cetakUlangStruk(transaksi)
+                        },
+                        onDeleteClick = { transaksi ->
+                            hapusRiwayat(transaksi)
+                        }
+                    )
                     rvRiwayat.adapter = adapter
                 }
             }
@@ -97,5 +103,28 @@ class RiwayatActivity : AppCompatActivity() {
             }
         }
         webView.loadDataWithBaseURL(null, htmlContent, "text/HTML", "UTF-8", null)
+    }
+
+    private fun hapusRiwayat(transaksi: ModelTransaksi) {
+        AlertDialog.Builder(this)
+            .setTitle("Hapus Riwayat")
+            .setMessage("Apakah Anda yakin ingin menghapus riwayat transaksi ini?")
+            .setPositiveButton("Hapus") { _, _ ->
+                val id = transaksi.id
+                if (id != null) {
+                    // Hapus dari node transaksi
+                    transaksiRef.child(id).removeValue()
+                        .addOnSuccessListener {
+                            // Juga hapus dari node penjualan (laporan)
+                            database.getReference("penjualan").child(id).removeValue()
+                            Toast.makeText(this, "Riwayat berhasil dihapus", Toast.LENGTH_SHORT).show()
+                        }
+                        .addOnFailureListener {
+                            Toast.makeText(this, "Gagal menghapus: ${it.message}", Toast.LENGTH_SHORT).show()
+                        }
+                }
+            }
+            .setNegativeButton("Batal", null)
+            .show()
     }
 }

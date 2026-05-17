@@ -35,7 +35,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="14dp"
             android:text="Nama Pegawai"
-            android:textColor="#212121"
+            android:textColor="@color/teal_deep"
             android:textSize="15sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toStartOf="@+id/layoutAksi"
@@ -88,17 +88,17 @@
                 android:background="@drawable/bg_icon_info"
                 android:padding="8dp"
                 android:src="@drawable/ic_edit"
-                app:tint="#673AB7" />
+                app:tint="@color/teal_deep" />
 
             <ImageView
                 android:id="@+id/btnHapusPegawai"
                 android:layout_width="36dp"
                 android:layout_height="36dp"
                 android:layout_marginStart="8dp"
-                android:background="@drawable/bg_hapus"
+                android:background="@drawable/bg_icon_info"
                 android:padding="8dp"
                 android:src="@drawable/ic_delete"
-                app:tint="#E53935" />
+                app:tint="@color/teal_deep" />
 
         </LinearLayout>
 

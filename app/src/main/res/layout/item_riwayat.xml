@@ -25,14 +25,33 @@
                 android:textStyle="bold"
                 android:textColor="@color/black" />
 
-            <ImageButton
-                android:id="@+id/btnCetakUlang"
-                android:layout_width="32dp"
-                android:layout_height="32dp"
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
-                android:background="?attr/selectableItemBackgroundBorderless"
-                android:src="@drawable/ic_printer"
-                app:tint="#000000" />
+                android:orientation="horizontal">
+
+                <ImageButton
+                    android:id="@+id/btnDeleteRiwayat"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_marginEnd="8dp"
+                    android:padding="6dp"
+                    android:scaleType="centerInside"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:src="@drawable/ic_delete"
+                    app:tint="#F44336" />
+
+                <ImageButton
+                    android:id="@+id/btnCetakUlang"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:padding="6dp"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/ic_printer"
+                    app:tint="#000000" />
+            </LinearLayout>
         </RelativeLayout>
 
         <TextView

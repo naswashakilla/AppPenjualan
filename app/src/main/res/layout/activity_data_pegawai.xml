@@ -15,26 +15,28 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@drawable/bg_circle_gradient"
             android:paddingBottom="20dp"
-            android:background="@drawable/bg_circle_gradient">
+            android:paddingTop="25dp">
+
             <ImageView
-            android:id="@+id/btnBack"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:padding="10dp"
-            android:src="@drawable/ic_back"
-            app:tint="#000000"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+                android:id="@+id/btnBack"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:padding="10dp"
+                android:src="@drawable/ic_back"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:tint="#000000" />
 
             <TextView
                 android:id="@+id/tvTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Data Pegawai"
-                android:textColor="#000000"
+                android:textColor="@color/teal_deep"
                 android:textSize="20sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="@id/btnBack"
@@ -83,8 +85,8 @@
                         android:layout_marginStart="12dp"
                         android:background="@null"
                         android:hint="Cari nama pegawai..."
-                        android:textSize="14sp"
-                        android:inputType="text" />
+                        android:inputType="text"
+                        android:textSize="14sp" />
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
@@ -141,8 +143,8 @@
         android:layout_gravity="bottom|end"
         android:layout_margin="24dp"
         android:src="@drawable/ic_plus"
-        app:backgroundTint="#673AB7"
-        app:tint="#FFFFFF"
+        app:backgroundTint="@color/teal_deep"
+        app:tint="@color/cream"
         app:elevation="6dp" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

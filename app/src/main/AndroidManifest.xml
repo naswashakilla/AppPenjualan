@@ -19,6 +19,18 @@
             android:name=".LaporanActivity"
             android:exported="false" />
         <activity
+            android:name=".PelangganActivity"
+            android:exported="false" />
+        <activity
+            android:name=".LayananActivity"
+            android:exported="false" />
+        <activity
+            android:name=".KlaimServisActivity"
+            android:exported="false" />
+        <activity
+            android:name=".KomunikasiActivity"
+            android:exported="false" />
+        <activity
             android:name=".CabangActivity"
             android:exported="false" />
         <activity

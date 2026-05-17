@@ -323,20 +323,49 @@ class TransaksiActivity : AppCompatActivity() {
 
     private fun simpanTransaksi(total: Long, bayar: Long, catatan: String) {
         val transaksiRef = database.getReference("transaksi")
+        val penjualanRef = database.getReference("penjualan")
         val id = transaksiRef.push().key ?: ""
+
+        var totalKeuntungan: Long = 0
+        for (item in listPesanan) {
+            val untungPerItem = item.menu.harga - item.menu.hargaModal
+            totalKeuntungan += untungPerItem * item.jumlah
+        }
+
+        val timestamp = System.currentTimeMillis()
 
         val data = mapOf(
             "id" to id,
             "tanggal" to java.text.SimpleDateFormat("dd-MM-yyyy HH:mm", Locale.getDefault()).format(java.util.Date()),
-            "items" to listPesanan.map { mapOf("namaProduk" to it.menu.namaProduk, "jumlah" to it.jumlah, "subtotal" to it.subtotal) },
+            "timestamp" to timestamp,
+            "items" to listPesanan.map { mapOf("idMenu" to it.menu.idMenu, "namaProduk" to it.menu.namaProduk, "jumlah" to it.jumlah, "subtotal" to it.subtotal) },
             "total" to total,
             "bayar" to bayar,
             "kembalian" to (bayar - total),
             "catatan" to catatan
         )
 
-        transaksiRef.child(id).setValue(data).addOnSuccessListener {
-            Toast.makeText(this, "Transaksi Berhasil!", Toast.LENGTH_SHORT).show()
+        val dataPenjualan = mapOf(
+            "idPenjualan" to id,
+            "tanggal" to timestamp,
+            "total" to total.toInt(),
+            "keuntungan" to totalKeuntungan.toInt()
+        )
+
+        // Simpan ke Transaksi dan Penjualan (Laporan)
+        transaksiRef.child(id).setValue(data)
+        penjualanRef.child(id).setValue(dataPenjualan)
+
+        // Update Stok Otomatis
+        for (item in listPesanan) {
+            val menuId = item.menu.idMenu
+            if (menuId != null) {
+                val sisaStok = item.menu.stok - item.jumlah
+                menuRef.child(menuId).child("stok").setValue(sisaStok)
+            }
+        }
+
+        Toast.makeText(this, "Transaksi Berhasil!", Toast.LENGTH_SHORT).show()
 
             // Tampilkan pilihan cetak setelah sukses simpan
             AlertDialog.Builder(this)
@@ -354,7 +383,6 @@ class TransaksiActivity : AppCompatActivity() {
                     updateTotal()
                 }
                 .show()
-        }
     }
 
     private fun formatRupiah(amount: Long): String {

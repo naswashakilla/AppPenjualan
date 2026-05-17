@@ -18,13 +18,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:paddingBottom="80dp"> <TextView
+            android:paddingTop="25dp"
+            android:paddingBottom="80dp">
+            <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Daftar Menu"
             android:textSize="24sp"
             android:textStyle="bold"
-            android:textColor="#212121"
+            android:textColor="@color/teal_deep"
             android:layout_marginHorizontal="20dp"
             android:layout_marginTop="24dp"/>
 
@@ -33,7 +35,7 @@
                 android:layout_height="wrap_content"
                 android:text="Kelola produk dan stok cabang Anda"
                 android:textSize="14sp"
-                android:textColor="#757575"
+                android:textColor="@color/teal_deep"
                 android:layout_marginHorizontal="20dp"
                 android:layout_marginBottom="16dp"/>
 
@@ -73,8 +75,8 @@
         android:layout_margin="24dp"
         android:contentDescription="Tambah Menu Baru"
         android:src="@drawable/ic_plus"
-        app:tint="@android:color/white"
-        app:backgroundTint="#673AB7"
+        app:tint="@color/cream"
+        app:backgroundTint="@color/teal_deep"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
 

@@ -16,13 +16,16 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:paddingBottom="80dp"> <TextView
+        android:paddingBottom="80dp"
+        android:paddingTop="25dp">
+
+        <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Kategori Produk"
         android:textSize="24sp"
         android:textStyle="bold"
-        android:textColor="#212121"
+        android:textColor="@color/teal_deep"
         android:layout_marginHorizontal="20dp"
         android:layout_marginTop="24dp"/>
 
@@ -63,8 +66,8 @@
         android:layout_margin="24dp"
         android:contentDescription="Tambah Kategori"
         android:src="@drawable/ic_plus"
-        app:tint="@android:color/white"
-        app:backgroundTint="#673AB7"
+        app:tint="@color/cream"
+        app:backgroundTint="@color/teal_deep"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
 

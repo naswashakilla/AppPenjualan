@@ -1,23 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="#F5F5F5">
+    android:background="@color/white">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="@color/white"
+        android:background="@color/teal_deep"
         android:paddingHorizontal="16dp">
 
         <ImageButton
             android:id="@+id/btnBackRiwayat"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:layout_centerVertical="true"
             android:background="?attr/selectableItemBackgroundBorderless"
-            android:src="@drawable/ic_back" />
+            android:src="@drawable/ic_back"
+            android:padding="8dp"
+            android:scaleType="centerInside"
+            app:tint="@color/cream" />
         <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -25,7 +29,7 @@
         android:text="Riwayat Transaksi"
         android:textSize="18sp"
         android:textStyle="bold"
-        android:textColor="@android:color/black" />
+        android:textColor="@color/cream" />
     </RelativeLayout>
 
     <androidx.recyclerview.widget.RecyclerView

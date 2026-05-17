@@ -6,14 +6,14 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F5F6FA"
+    android:background="@color/white"
     tools:context=".MainActivity">
 
     <View
         android:id="@+id/headerView"
         android:layout_width="match_parent"
         android:layout_height="220dp"
-        android:background="#673AB7"
+        android:background="@color/teal_deep"
         app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.imageview.ShapeableImageView
@@ -24,7 +24,7 @@
         android:layout_marginTop="32dp"
         android:padding="2dp"
         android:src="@drawable/ic_profile"
-        app:strokeColor="#D1C4E9"
+        app:strokeColor="@color/cream"
         app:shapeAppearanceOverlay="@style/ShapeAppearance.MaterialComponents.SmallComponent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -35,7 +35,7 @@
         android:layout_height="30dp"
         android:layout_marginEnd="24dp"
         android:src="@drawable/ic_menu"
-        app:tint="#FFFFFF"
+        app:tint="@color/cream"
         app:layout_constraintBottom_toBottomOf="@+id/ivProfileTop"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/ivProfileTop" />
@@ -46,7 +46,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:text="Selamat Siang, Shakilla!"
-        android:textColor="#FFFFFF"
+        android:textColor="@color/cream"
         android:textSize="22sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@+id/ivProfileTop"
@@ -59,6 +59,7 @@
         android:text="08 Januari 2026"
         android:textColor="#D1C4E9"
         android:textSize="14sp"
+        android:alpha="0.8"
         app:layout_constraintStart_toStartOf="@+id/tvSapaan"
         app:layout_constraintTop_toBottomOf="@+id/tvSapaan" />
 
@@ -70,6 +71,7 @@
         android:layout_marginTop="20dp"
         app:cardCornerRadius="16dp"
         app:cardElevation="8dp"
+        app:cardBackgroundColor="@color/white"
         app:layout_constraintTop_toBottomOf="@+id/tvtanggal">
 
         <LinearLayout
@@ -82,11 +84,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Estimasi Hari Ini"
-                android:textColor="#757575"
+                android:textColor="@color/teal_deep"
                 android:textSize="12sp"
                 android:textStyle="bold" />
 
             <TextView
+                android:id="@+id/tvEstimasi"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
@@ -116,7 +119,8 @@
                     <ImageView
                         android:layout_width="40dp"
                         android:layout_height="40dp"
-                        android:src="@drawable/ic_transaksi" />
+                        android:src="@drawable/ic_transaksi"
+                        app:tint="@color/teal_deep" />
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -136,7 +140,8 @@
                     <ImageView
                         android:layout_width="40dp"
                         android:layout_height="40dp"
-                        android:src="@drawable/ic_pelanggan" />
+                        android:src="@drawable/ic_pelanggan"
+                        app:tint="@color/teal_deep" />
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -156,7 +161,8 @@
                     <ImageView
                         android:layout_width="40dp"
                         android:layout_height="40dp"
-                        android:src="@drawable/ic_laporan" />
+                        android:src="@drawable/ic_laporan"
+                        app:tint="@color/teal_deep" />
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -206,7 +212,8 @@
                 <ImageView
                     android:layout_width="40dp"
                     android:layout_height="40dp"
-                    android:src="@drawable/ic_produk" />
+                    android:src="@drawable/ic_produk"
+                    app:tint="@color/teal_deep" />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -234,7 +241,8 @@
                 <ImageView
                     android:layout_width="40dp"
                     android:layout_height="40dp"
-                    android:src="@drawable/ic_kategori" />
+                    android:src="@drawable/ic_kategori"
+                    app:tint="@color/teal_deep" />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -262,7 +270,8 @@
                 <ImageView
                     android:layout_width="40dp"
                     android:layout_height="40dp"
-                    android:src="@drawable/ic_pelanggan" />
+                    android:src="@drawable/ic_pelanggan"
+                    app:tint="@color/teal_deep" />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -290,7 +299,8 @@
                 <ImageView
                     android:layout_width="40dp"
                     android:layout_height="40dp"
-                    android:src="@drawable/ic_layanan" />
+                    android:src="@drawable/ic_layanan"
+                    app:tint="@color/teal_deep" />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -318,7 +328,8 @@
                 <ImageView
                     android:layout_width="40dp"
                     android:layout_height="40dp"
-                    android:src="@drawable/ic_cabang" />
+                    android:src="@drawable/ic_cabang"
+                    app:tint="@color/teal_deep" />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -346,7 +357,8 @@
                 <ImageView
                     android:layout_width="40dp"
                     android:layout_height="40dp"
-                    android:src="@drawable/ic_printer" />
+                    android:src="@drawable/ic_printer"
+                    app:tint="@color/teal_deep" />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

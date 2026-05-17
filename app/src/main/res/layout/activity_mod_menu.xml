@@ -52,12 +52,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Informasi Produk"
-                android:textColor="#673AB7"
+                android:textColor="@color/teal_deep"
                 android:textStyle="bold"
                 android:layout_marginBottom="12dp"/>
 
             <com.google.android.material.textfield.TextInputLayout
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Nama Produk"
@@ -69,8 +69,19 @@
                     android:layout_height="wrap_content" />
             </com.google.android.material.textfield.TextInputLayout>
 
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/ivPreviewFoto"
+                android:layout_width="match_parent"
+                android:layout_height="180dp"
+                android:layout_marginBottom="16dp"
+                android:scaleType="centerCrop"
+                app:shapeAppearanceOverlay="@style/ShapeAppearance.MaterialComponents.SmallComponent"
+                android:src="@drawable/ic_produk"
+                app:strokeColor="@color/teal_light"
+                app:strokeWidth="2dp" />
+
             <com.google.android.material.textfield.TextInputLayout
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Link URL Foto (Opsional)"
@@ -87,14 +98,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:baselineAligned="false">
+                android:baselineAligned="false"
+                android:layout_marginBottom="16dp">
 
                 <com.google.android.material.textfield.TextInputLayout
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1.2"
-                    android:hint="Harga (Rp)"
+                    android:layout_weight="1"
+                    android:hint="Harga Jual"
                     android:layout_marginEnd="8dp">
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/etHarga"
@@ -107,15 +119,28 @@
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="0.8"
-                    android:hint="Stok">
+                    android:layout_weight="1"
+                    android:hint="Harga Modal">
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/etStok"
+                        android:id="@+id/etHargaModal"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="number" />
                 </com.google.android.material.textfield.TextInputLayout>
             </LinearLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Stok"
+                android:layout_marginBottom="16dp">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etStok"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="number" />
+            </com.google.android.material.textfield.TextInputLayout>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -135,7 +160,7 @@
                 android:layout_marginBottom="4dp"/>
 
             <com.google.android.material.textfield.TextInputLayout
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Pilih Cabang (Bisa lebih dari 1)"
@@ -203,9 +228,11 @@
                 android:layout_marginBottom="20dp"
                 android:text="Simpan Data Menu"
                 android:textSize="16sp"
-                android:backgroundTint="#673AB7"
+                android:backgroundTint="@color/teal_deep"
+                android:textColor="@color/cream"
                 app:cornerRadius="16dp"
                 app:icon="@android:drawable/ic_menu_save"
+                app:iconTint="@color/cream"
                 android:textAllCaps="false"/>
 
         </LinearLayout>

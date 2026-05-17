@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F8F9FD"
+    android:background="@color/white"
     android:fillViewport="true">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -11,13 +11,13 @@
         android:layout_height="wrap_content"
         android:padding="32dp">
 
-        <ImageView
+        <ImageButton
             android:id="@+id/btnBack"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:src="@drawable/ic_search"
-            android:rotation="180"
-            app:tint="#1A1A1A"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/ic_back"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            app:tint="@color/teal_deep"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -27,7 +27,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
             android:text="Buat Akun Baru"
-            android:textColor="#1A1A1A"
+            android:textColor="@color/teal_deep"
             android:textSize="28sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
@@ -38,7 +38,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Lengkapi data untuk memulai aplikasi"
-            android:textColor="#9E9E9E"
+            android:textColor="#757575"
             android:textSize="14sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tvTitleReg" />
@@ -51,15 +51,13 @@
             app:layout_constraintTop_toBottomOf="@id/tvSubTitleReg">
 
             <com.google.android.material.textfield.TextInputLayout
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:boxCornerRadiusBottomEnd="16dp"
                 app:boxCornerRadiusBottomStart="16dp"
                 app:boxCornerRadiusTopEnd="16dp"
                 app:boxCornerRadiusTopStart="16dp"
-                app:boxStrokeColor="#673AB7"
-                app:hintTextColor="#673AB7"
                 android:hint="Nama Lengkap">
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/etNamaDaftar"
@@ -69,7 +67,7 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
@@ -77,8 +75,6 @@
                 app:boxCornerRadiusBottomStart="16dp"
                 app:boxCornerRadiusTopEnd="16dp"
                 app:boxCornerRadiusTopStart="16dp"
-                app:boxStrokeColor="#673AB7"
-                app:hintTextColor="#673AB7"
                 android:hint="Email">
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/etEmailDaftar"
@@ -88,7 +84,7 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
@@ -96,8 +92,6 @@
                 app:boxCornerRadiusBottomStart="16dp"
                 app:boxCornerRadiusTopEnd="16dp"
                 app:boxCornerRadiusTopStart="16dp"
-                app:boxStrokeColor="#673AB7"
-                app:hintTextColor="#673AB7"
                 android:hint="Nomor Telepon">
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/etTelpDaftar"
@@ -107,7 +101,7 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
@@ -115,8 +109,6 @@
                 app:boxCornerRadiusBottomStart="16dp"
                 app:boxCornerRadiusTopEnd="16dp"
                 app:boxCornerRadiusTopStart="16dp"
-                app:boxStrokeColor="#673AB7"
-                app:hintTextColor="#673AB7"
                 app:passwordToggleEnabled="true"
                 android:hint="Password">
                 <com.google.android.material.textfield.TextInputEditText
@@ -136,7 +128,8 @@
                 android:textSize="16sp"
                 android:textStyle="bold"
                 app:cornerRadius="16dp"
-                android:backgroundTint="#673AB7"
+                android:backgroundTint="@color/teal_deep"
+                android:textColor="@color/cream"
                 app:elevation="4dp" />
 
             <TextView
@@ -147,7 +140,7 @@
                 android:layout_marginTop="24dp"
                 android:layout_marginBottom="24dp"
                 android:text="Sudah punya akun? Masuk"
-                android:textColor="#673AB7"
+                android:textColor="@color/teal_light"
                 android:textStyle="bold" />
 
         </LinearLayout>

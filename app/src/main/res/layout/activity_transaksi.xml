@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F8F9FA"
+    android:background="@color/white"
     tools:context=".TransaksiActivity">
 
     <LinearLayout
@@ -17,6 +17,7 @@
         android:paddingEnd="16dp"
         android:paddingTop="40dp"
         android:paddingBottom="20dp"
+        android:background="@color/teal_deep"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
@@ -33,23 +34,25 @@
                 android:layout_weight="1"
                 android:layout_marginStart="12dp"
                 android:text="Transaksi"
-                android:textColor="#000000"
+                android:textColor="@color/cream"
                 android:textSize="23sp"
                 android:textStyle="bold" />
 
             <ImageButton
                 android:id="@+id/btnRiwayat"
-                android:layout_width="36dp"
-                android:layout_height="36dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:background="@drawable/bg_btn_back"
                 android:src="@drawable/ic_history"
-                android:padding="8dp"
+                android:padding="10dp"
+                android:scaleType="centerInside"
+                app:tint="@color/teal_deep"
                 android:contentDescription="Riwayat" />
 
         </LinearLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
@@ -58,7 +61,6 @@
             app:boxCornerRadiusTopEnd="12dp"
             app:boxCornerRadiusBottomStart="12dp"
             app:boxCornerRadiusBottomEnd="12dp"
-            app:boxStrokeColor="#FFFFFF"
             app:boxStrokeWidth="0dp"
             app:hintTextColor="#9E9E9E"
             android:hint="Cari menu..."
@@ -115,7 +117,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:visibility="gone"
-                android:indeterminateTint="#673AB7" />
+                android:indeterminateTint="@color/teal_deep" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvMenu"
@@ -161,7 +163,7 @@
                     android:layout_height="wrap_content"
                     android:text="0 item"
                     android:textSize="11sp"
-                    android:textColor="#673AB7"
+                    android:textColor="@color/cream"
                     android:background="@drawable/bg_badge_item"
                     android:paddingStart="8dp"
                     android:paddingEnd="8dp"
@@ -198,7 +200,7 @@
                 android:layout_margin="10dp"
                 app:cardCornerRadius="12dp"
                 app:cardElevation="0dp"
-                app:cardBackgroundColor="#F3EDF9">
+                app:cardBackgroundColor="#FDFCE6">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -277,7 +279,7 @@
                             android:text="Rp 0"
                             android:textSize="14sp"
                             android:textStyle="bold"
-                            android:textColor="#673AB7" />
+                            android:textColor="@color/teal_deep" />
                     </LinearLayout>
 
                 </LinearLayout>
@@ -295,8 +297,8 @@
                 android:textAllCaps="false"
                 android:textSize="14sp"
                 android:textStyle="bold"
-                android:textColor="#FFFFFF"
-                android:backgroundTint="#673AB7"
+                android:textColor="@color/cream"
+                android:backgroundTint="@color/teal_deep"
                 app:cornerRadius="12dp"
                 app:elevation="2dp" />
 

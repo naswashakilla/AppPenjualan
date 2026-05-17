@@ -12,7 +12,8 @@ import java.util.Locale
 
 class RiwayatAdapter(
     private val list: List<ModelTransaksi>,
-    private val onPrintClick: (ModelTransaksi) -> Unit
+    private val onPrintClick: (ModelTransaksi) -> Unit,
+    private val onDeleteClick: (ModelTransaksi) -> Unit
 ) : RecyclerView.Adapter<RiwayatAdapter.ViewHolder>() {
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -20,6 +21,7 @@ class RiwayatAdapter(
         val tvItems: TextView = view.findViewById(R.id.tvListMenuRiwayat)
         val tvTotal: TextView = view.findViewById(R.id.tvTotalRiwayat)
         val btnPrint: ImageButton = view.findViewById(R.id.btnCetakUlang)
+        val btnDelete: ImageButton = view.findViewById(R.id.btnDeleteRiwayat)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -40,6 +42,7 @@ class RiwayatAdapter(
         holder.tvItems.text = ringkasanMenu ?: "-"
 
         holder.btnPrint.setOnClickListener { onPrintClick(data) }
+        holder.btnDelete.setOnClickListener { onDeleteClick(data) }
     }
 
     override fun getItemCount(): Int = list.size

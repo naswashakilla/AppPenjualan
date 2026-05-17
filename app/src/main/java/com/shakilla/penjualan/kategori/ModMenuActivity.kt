@@ -1,13 +1,17 @@
 package com.shakilla.penjualan.kategori
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import com.bumptech.glide.Glide
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
+import com.google.android.material.imageview.ShapeableImageView
 import com.google.android.material.textfield.TextInputEditText
 import com.google.firebase.database.*
 import com.shakilla.penjualan.R
@@ -18,8 +22,10 @@ class ModMenuActivity : AppCompatActivity() {
 
     private lateinit var etNama: TextInputEditText
     private lateinit var etHarga: TextInputEditText
+    private lateinit var etHargaModal: TextInputEditText
     private lateinit var etStok: TextInputEditText
     private lateinit var etUrlFoto: TextInputEditText
+    private lateinit var ivPreview: ShapeableImageView
     private lateinit var actvKategori: AutoCompleteTextView
     private lateinit var cgStatus: ChipGroup
     private lateinit var btnSimpan: MaterialButton
@@ -52,8 +58,15 @@ class ModMenuActivity : AppCompatActivity() {
 
             etNama.setText(dataEdit.namaProduk)
             etHarga.setText(dataEdit.harga.toString())
+            etHargaModal.setText(dataEdit.hargaModal.toString())
             etStok.setText(dataEdit.stok.toString())
             etUrlFoto.setText(dataEdit.urlFoto)
+            
+            // Preview awal jika sedang edit
+            if (!dataEdit.urlFoto.isNullOrBlank()) {
+                Glide.with(this).load(dataEdit.urlFoto).placeholder(R.drawable.ic_produk).into(ivPreview)
+            }
+            
             actvKategori.setText(dataEdit.kategori)
             cabangTerpilih.addAll(dataEdit.listCabang ?: emptyList())
             etPilihCabang.setText(cabangTerpilih.joinToString(", "))
@@ -83,6 +96,7 @@ class ModMenuActivity : AppCompatActivity() {
     private fun init() {
         etNama = findViewById(R.id.etNamaProduk)
         etHarga = findViewById(R.id.etHarga)
+        etHargaModal = findViewById(R.id.etHargaModal)
         etStok = findViewById(R.id.etStok)
         etUrlFoto = findViewById(R.id.etUrlFoto)
         etPilihCabang = findViewById(R.id.actvCabang) // Pastikan ID di XML adalah actvCabang
@@ -90,10 +104,29 @@ class ModMenuActivity : AppCompatActivity() {
         cgStatus = findViewById(R.id.cgStatus)
         btnSimpan = findViewById(R.id.btnSimpan)
         tvJudul = findViewById(R.id.tvJudul)
+        ivPreview = findViewById(R.id.ivPreviewFoto)
 
         actvKategori.setOnClickListener {
             actvKategori.showDropDown()
         }
+
+        // Real-time Preview saat mengetik URL
+        etUrlFoto.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                val url = s.toString().trim()
+                if (url.isNotEmpty()) {
+                    Glide.with(this@ModMenuActivity)
+                        .load(url)
+                        .placeholder(R.drawable.ic_produk)
+                        .error(R.drawable.ic_produk)
+                        .into(ivPreview)
+                } else {
+                    ivPreview.setImageResource(R.drawable.ic_produk)
+                }
+            }
+            override fun afterTextChanged(s: Editable?) {}
+        })
     }
 
     private fun ambilDataKategori() {
@@ -150,6 +183,7 @@ class ModMenuActivity : AppCompatActivity() {
     private fun updateData(id: String) {
         val nama = etNama.text.toString().trim()
         val harga = etHarga.text.toString().toLongOrNull() ?: 0L
+        val hargaModal = etHargaModal.text.toString().toLongOrNull() ?: 0L
         val stok = etStok.text.toString().toIntOrNull() ?: 0
         val url = etUrlFoto.text.toString().trim()
         val kategori = actvKategori.text.toString()
@@ -160,7 +194,7 @@ class ModMenuActivity : AppCompatActivity() {
             return
         }
 
-        val menuUpdate = ModelMenu(id, nama, harga, stok, kategori, status, url, cabangTerpilih)
+        val menuUpdate = ModelMenu(id, nama, harga, hargaModal, stok, kategori, status, url, cabangTerpilih)
 
         myRef.child(id).setValue(menuUpdate).addOnSuccessListener {
             Toast.makeText(this, "Menu Berhasil Diperbarui!", Toast.LENGTH_SHORT).show()
@@ -171,11 +205,13 @@ class ModMenuActivity : AppCompatActivity() {
     private fun simpanData() {
         val nama = etNama.text.toString().trim()
         val hargaText = etHarga.text.toString()
+        val hargaModalText = etHargaModal.text.toString()
         val stokText = etStok.text.toString()
         val url = etUrlFoto.text.toString().trim()
         val kategori = actvKategori.text.toString()
 
         val harga = hargaText.toLongOrNull() ?: 0L
+        val hargaModal = hargaModalText.toLongOrNull() ?: 0L
         val stok = stokText.toIntOrNull() ?: 0
         val status = if (findViewById<Chip>(R.id.chipAktif).isChecked) "1" else "0"
 
@@ -190,6 +226,7 @@ class ModMenuActivity : AppCompatActivity() {
             idMenu = id,
             namaProduk = nama,
             harga = harga,
+            hargaModal = hargaModal,
             stok = stok,
             kategori = kategori,
             status = status,

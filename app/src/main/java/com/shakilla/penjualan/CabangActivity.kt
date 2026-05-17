@@ -31,6 +31,10 @@ class CabangActivity : AppCompatActivity() {
 
         rvCabang.layoutManager = LinearLayoutManager(this)
 
+        findViewById<android.widget.ImageButton>(R.id.btnBackCabang).setOnClickListener {
+            finish()
+        }
+
         btnSimpan.setOnClickListener { simpanKeFirebase() }
 
         loadDaftarCabang()

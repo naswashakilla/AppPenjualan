@@ -31,7 +31,7 @@
                 android:background="@drawable/bg_btn_back"
                 android:padding="10dp"
                 android:src="@drawable/ic_back"
-                app:tint="#FFFFFF"
+                app:tint="@color/teal_deep"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -75,12 +75,12 @@
                     android:id="@+id/btnPilihFoto"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:backgroundTint="#673AB7"
+                    app:backgroundTint="@color/cream"
                     app:fabSize="mini"
                     app:layout_constraintBottom_toBottomOf="@id/ivFotoForm"
                     app:layout_constraintEnd_toEndOf="@id/ivFotoForm"
                     app:srcCompat="@drawable/ic_plus"
-                    app:tint="#FFFFFF"
+                    app:tint="@color/teal_deep"
                     android:layout_margin="2dp"
                     app:borderWidth="0dp"
                     app:elevation="4dp"/>
@@ -108,16 +108,16 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Data Lengkap Pegawai"
-                        android:textColor="#2D2D2D"
+                        android:textColor="@color/teal_deep"
                         android:textSize="17sp"
                         android:textStyle="bold" />
 
                     <View
                         android:layout_width="40dp"
-                        android:layout_height="3dp"
+                        android:layout_height="1dp"
                         android:layout_marginTop="6dp"
                         android:layout_marginBottom="24dp"
-                        android:background="#673AB7" />
+                        android:background="@color/teal_deep" />
 
                     <com.google.android.material.textfield.TextInputLayout
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -220,7 +220,7 @@
                         android:textSize="16sp"
                         android:textStyle="bold"
                         app:cornerRadius="18dp"
-                        android:backgroundTint="#673AB7" />
+                        android:backgroundTint="@color/teal_deep" />
 
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
