@@ -11,6 +11,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:paddingTop="25dp"
         android:layout_marginBottom="24dp">
 
         <ImageView
@@ -31,7 +32,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Tambah Kategori"
-            android:textColor="#212121"
+            android:textColor="@color/teal_deep"
             android:textSize="22sp"
             android:textStyle="bold" />
 
@@ -118,6 +119,6 @@
         android:textAllCaps="false"
         android:textSize="16sp"
         app:cornerRadius="12dp"
-        android:backgroundTint="#673AB7"/>
+        android:backgroundTint="@color/teal_deep"/>
 
 </LinearLayout>

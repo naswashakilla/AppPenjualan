@@ -15,7 +15,8 @@
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize">
+            android:layout_height="?attr/actionBarSize"
+            android:paddingTop="27dp">
 
             <ImageView
                 android:id="@+id/btnBack"
@@ -23,7 +24,7 @@
                 android:layout_height="32dp"
                 android:src="@drawable/ic_back"
                 android:background="?attr/selectableItemBackgroundBorderless"
-                app:tint="#212121" />
+                app:tint="@color/teal_deep" />
 
             <TextView
                 android:id="@+id/tvJudul"
@@ -31,7 +32,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
                 android:text="Manajemen Menu"
-                android:textColor="#212121"
+                android:textColor="@color/teal_deep"
                 android:textSize="18sp"
                 android:textStyle="bold" />
         </androidx.appcompat.widget.Toolbar>
@@ -146,7 +147,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Lokasi &amp; Klasifikasi"
-                android:textColor="#673AB7"
+                android:textColor="@color/teal_deep"
                 android:textStyle="bold"
                 android:layout_marginTop="24dp"
                 android:layout_marginBottom="12dp"/>

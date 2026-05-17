@@ -13,6 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:elevation="0dp"
+        android:paddingTop="25dp"
         android:background="@color/white">
 
         <com.google.android.material.appbar.MaterialToolbar
