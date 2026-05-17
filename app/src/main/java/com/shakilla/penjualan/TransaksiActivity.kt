@@ -165,8 +165,23 @@ class TransaksiActivity : AppCompatActivity() {
     private fun setupRvPesanan() {
         pesananAdapter = PesananAdapter(
             listPesanan,
-            onTambah = { pos -> ubahJumlah(pos, 1) },
-            onKurang = { pos -> ubahJumlah(pos, -1) }
+            onTambah = { position ->
+                val item = listPesanan[position]
+                item.jumlah++
+                pesananAdapter.notifyItemChanged(position)
+                updateTotal()
+            },
+            onKurang = { position ->
+                val item = listPesanan[position]
+                if (item.jumlah > 1) {
+                    item.jumlah--
+                    pesananAdapter.notifyItemChanged(position)
+                } else {
+                    listPesanan.removeAt(position)
+                    pesananAdapter.notifyItemRemoved(position)
+                }
+                updateTotal()
+            }
         )
         rvPesanan.layoutManager = LinearLayoutManager(this)
         rvPesanan.adapter = pesananAdapter
@@ -201,11 +216,8 @@ class TransaksiActivity : AppCompatActivity() {
         }
 
         btnCetak.setOnClickListener {
-            if (listPesanan.isEmpty()) {
-                Toast.makeText(this, "Tidak ada pesanan untuk dicetak", Toast.LENGTH_SHORT).show()
-            } else {
-                cetakStruk(totalBayar, listPesanan)
-            }
+            val total = listPesanan.sumOf { it.subtotal }
+            cetakStruk(total, listPesanan)
         }
     }
 
@@ -235,7 +247,6 @@ class TransaksiActivity : AppCompatActivity() {
         Toast.makeText(this, "${menu.namaProduk} ditambahkan", Toast.LENGTH_SHORT).show()
     }
 
-    // ── Ubah Jumlah Item ──────────────────────────────────────────────────────
     private fun ubahJumlah(position: Int, delta: Int) {
         val item = listPesanan[position]
         item.jumlah += delta

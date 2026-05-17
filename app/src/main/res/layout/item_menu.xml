@@ -3,115 +3,97 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginHorizontal="16dp"
-    android:layout_marginVertical="8dp"
-    app:cardCornerRadius="16dp"
-    app:cardElevation="4dp">
+    android:layout_marginHorizontal="12dp"
+    android:layout_marginVertical="6dp"
+    app:cardCornerRadius="12dp"
+    app:cardElevation="3dp">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="12dp">
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/ivItemFoto"
-            android:layout_width="90dp"
-            android:layout_height="90dp"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
             android:scaleType="centerCrop"
-            android:background="#F5F5F5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:shapeAppearanceOverlay="@style/ShapeAppearance.MaterialComponents.SmallComponent"
-            app:srcCompat="@drawable/ic_produk" />
+            android:src="@drawable/ic_produk" />
 
-        <TextView
-            android:id="@+id/tvItemNama"
-            android:layout_width="0dp"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="8dp"
-            android:text="Nama Produk"
-            android:textColor="#212121"
-            android:textSize="17sp"
-            android:textStyle="bold"
-            android:maxLines="1"
-            android:ellipsize="end"
-            app:layout_constraintEnd_toStartOf="@+id/chipItemStatus"
-            app:layout_constraintStart_toEndOf="@+id/ivItemFoto"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:layout_toEndOf="@id/ivItemFoto"
+            android:layout_toStartOf="@id/layoutAction"
+            android:layout_marginStart="12dp"
+            android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/tvItemHarga"
+            <TextView
+                android:id="@+id/tvItemNama"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Nama Produk"
+                android:textColor="#212121"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvItemHarga"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Rp 0"
+                android:textColor="#673AB7"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvItemCabang"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Cabang"
+                android:textSize="12sp"
+                android:textColor="#757575" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chipItemStatus"
+                style="@style/Widget.MaterialComponents.Chip.Action"
+                android:layout_width="wrap_content"
+                android:layout_height="32dp"
+                android:text="Status"
+                android:textSize="10sp"
+                app:chipBackgroundColor="@android:color/holo_green_light" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layoutAction"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Rp 25.000"
-            android:textColor="#673AB7"
-            android:textSize="15sp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="@+id/tvItemNama"
-            app:layout_constraintTop_toBottomOf="@+id/tvItemNama" />
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/tvItemStok"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:text="Stok: 12"
-            android:textColor="#757575"
-            android:textSize="13sp"
-            app:layout_constraintStart_toStartOf="@+id/tvItemHarga"
-            app:layout_constraintTop_toBottomOf="@+id/tvItemHarga" />
+            <ImageView
+                android:id="@+id/btnEditMenu"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:padding="8dp"
+                android:src="@drawable/ic_edit"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                app:tint="#4CAF50" />
 
-        <TextView
-            android:id="@+id/tvItemDot"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text=" • "
-            android:textColor="#757575"
-            app:layout_constraintBottom_toBottomOf="@+id/tvItemStok"
-            app:layout_constraintStart_toEndOf="@+id/tvItemStok"
-            app:layout_constraintTop_toTopOf="@+id/tvItemStok" />
+            <ImageView
+                android:id="@+id/btnDeleteMenu"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:layout_marginTop="8dp"
+                android:padding="8dp"
+                android:src="@drawable/ic_delete"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                app:tint="#F44336" />
+        </LinearLayout>
 
-        <TextView
-            android:id="@+id/tvItemKategori"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="Kategori"
-            android:textColor="#757575"
-            android:textSize="13sp"
-            android:maxLines="1"
-            android:ellipsize="end"
-            app:layout_constraintBottom_toBottomOf="@+id/tvItemStok"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/tvItemDot"
-            app:layout_constraintTop_toTopOf="@+id/tvItemStok" />
+        <TextView android:id="@+id/tvItemStok" android:layout_width="0dp" android:layout_height="0dp" android:visibility="gone"/>
+        <TextView android:id="@+id/tvItemKategori" android:layout_width="0dp" android:layout_height="0dp" android:visibility="gone"/>
 
-        <TextView
-            android:id="@+id/tvItemCabang"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="2dp"
-            android:text="Cabang A"
-            android:textColor="#9E9E9E"
-            android:textSize="12sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/tvItemStok"
-            app:layout_constraintTop_toBottomOf="@+id/tvItemStok" />
-
-        <com.google.android.material.chip.Chip
-            android:id="@+id/chipItemStatus"
-            style="@style/Widget.MaterialComponents.Chip.Choice"
-            android:layout_width="wrap_content"
-            android:layout_height="32dp"
-            android:clickable="false"
-            android:text="Tersedia"
-            android:textColor="#4CAF50"
-            android:textSize="10sp"
-            app:chipBackgroundColor="#E8F5E9"
-            app:chipStrokeWidth="0dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </RelativeLayout>
 </androidx.cardview.widget.CardView>

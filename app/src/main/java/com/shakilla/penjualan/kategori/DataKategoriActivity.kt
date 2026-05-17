@@ -20,11 +20,12 @@ import com.google.firebase.database.DatabaseError
 import android.text.Editable
 import android.text.TextWatcher
 import android.widget.EditText
+import androidx.appcompat.app.AlertDialog
 
 class DataKategoriActivity : AppCompatActivity() {
 
     private lateinit var recyclerView: RecyclerView
-    private lateinit var etSearch: EditText // Tambahkan ini
+    private lateinit var etSearch: EditText
     private lateinit var listKategori: ArrayList<ModelKategori>
     private lateinit var adapter: KategoriAdapter
     private lateinit var database: DatabaseReference
@@ -34,9 +35,9 @@ class DataKategoriActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_data_kategori)
 
-        init()          // 1. Hubungkan View (findViewById)
-        setupSearch()   // 2. Setup Search Listener
-        loadData()      // 3. Ambil Data
+        init()
+        setupSearch()
+        loadData()
 
         fabAdd.setOnClickListener {
             startActivity(Intent(this, ModKategoriActivity::class.java))
@@ -46,14 +47,22 @@ class DataKategoriActivity : AppCompatActivity() {
     private fun init() {
         recyclerView = findViewById(R.id.rvKategori)
         fabAdd = findViewById(R.id.fabAdd)
-        etSearch = findViewById(R.id.etSearchKategori) // Pastikan ID ini ada di XML
+        etSearch = findViewById(R.id.etSearchKategori)
 
         recyclerView.layoutManager = LinearLayoutManager(this)
         listKategori = ArrayList()
 
-        adapter = KategoriAdapter(listKategori) { kategori ->
-            Toast.makeText(this, "Klik: ${kategori.namaKategori}", Toast.LENGTH_SHORT).show()
-        }
+        adapter = KategoriAdapter(
+            listKategori, // INI YANG PENTING
+            onEdit = { kategori ->
+                val intent = Intent(this, ModKategoriActivity::class.java)
+                intent.putExtra("DATA_KATEGORI", kategori)
+                startActivity(intent)
+            },
+            onHapus = { kategori ->
+                showDeleteDialog(kategori)
+            }
+        )
         recyclerView.adapter = adapter
 
         database = FirebaseDatabase
@@ -79,12 +88,27 @@ class DataKategoriActivity : AppCompatActivity() {
                     val kategori = dataSnapshot.getValue(ModelKategori::class.java)
                     kategori?.let { listKategori.add(it) }
                 }
-                adapter.updateData(listKategori) // Gunakan fungsi updateData agar list cadangan terisi
+                adapter.updateData(ArrayList(listKategori))
             }
 
             override fun onCancelled(error: DatabaseError) {
                 Toast.makeText(this@DataKategoriActivity, "Gagal memuat data", Toast.LENGTH_SHORT).show()
             }
         })
+    }
+
+    private fun showDeleteDialog(kategori: ModelKategori) {
+        AlertDialog.Builder(this)
+            .setTitle("Hapus Kategori")
+            .setMessage("Yakin ingin menghapus kategori ${kategori.namaKategori}?")
+            .setPositiveButton("Hapus") { _, _ ->
+                FirebaseDatabase.getInstance().getReference("kategori")
+                    .child(kategori.idKategori!!).removeValue()
+                    .addOnSuccessListener {
+                        Toast.makeText(this, "Kategori dihapus", Toast.LENGTH_SHORT).show()
+                    }
+            }
+            .setNegativeButton("Batal", null)
+            .show()
     }
 }

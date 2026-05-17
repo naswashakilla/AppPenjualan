@@ -3,60 +3,92 @@ package com.shakilla.penjualan.kategori
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.chip.Chip
 import com.shakilla.penjualan.R
 import com.shakilla.penjualan.model.ModelKategori
-import java.util.*
-import kotlin.collections.ArrayList
+import java.util.Locale
+import android.graphics.Color
 
 class KategoriAdapter(
-    private var listKategoriFull: ArrayList<ModelKategori>,
-    private val onItemClick: (ModelKategori) -> Unit
+    private var listKategori: MutableList<ModelKategori>,
+    private val onEdit: (ModelKategori) -> Unit,
+    private val onHapus: (ModelKategori) -> Unit
 ) : RecyclerView.Adapter<KategoriAdapter.KategoriViewHolder>() {
 
-    // List yang akan ditampilkan ke layar
-    private var listKategoriDisplay: List<ModelKategori> = listKategoriFull
+    private var listKategoriFull: ArrayList<ModelKategori> = ArrayList(listKategori)
 
     class KategoriViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val tvNama: TextView = itemView.findViewById(R.id.tvNamaKategori)
-        val tvStatus: TextView = itemView.findViewById(R.id.chipStatus)
+        val btnEdit: ImageView = itemView.findViewById(R.id.btnEditKategori)
+        val btnHapus: ImageView = itemView.findViewById(R.id.btnDeleteKategori)
+        val tvStatus: Chip = itemView.findViewById(R.id.chipStatus)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): KategoriViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_data_kategori, parent, false)
+        val view = LayoutInflater.from(parent.context)
+            .inflate(R.layout.item_data_kategori, parent, false)
+
         return KategoriViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: KategoriViewHolder, position: Int) {
-        val kategori = listKategoriDisplay[position]
+        val kategori = listKategori[position]
 
-        // Gunakan Safe Call ?. untuk menghindari crash jika data null
-        holder.tvNama.text = kategori.namaKategori ?: "-"
-        holder.tvStatus.text = if (kategori.statusKategori == "1") "Aktif" else "Tidak Aktif"
+        holder.tvNama.text = kategori.namaKategori
 
-        holder.itemView.setOnClickListener { onItemClick(kategori) }
+        if (kategori.statusKategori == "1") {
+
+            holder.tvStatus.text = "Aktif"
+            holder.tvStatus.setBackgroundResource(R.drawable.bg_status_aktif)
+            holder.tvStatus.setTextColor(Color.parseColor("#2E7D32"))
+
+        } else {
+
+            holder.tvStatus.text = "Tidak Aktif"
+            holder.tvStatus.setBackgroundResource(R.drawable.bg_status_nonaktif)
+            holder.tvStatus.setTextColor(Color.parseColor("#C62828"))
+        }
+
+        holder.btnEdit.setOnClickListener {
+            onEdit(kategori)
+        }
+
+        holder.btnHapus.setOnClickListener {
+            onHapus(kategori)
+        }
     }
 
-    override fun getItemCount(): Int = listKategoriDisplay.size
+    override fun getItemCount(): Int = listKategori.size
 
-    // Fungsi untuk update data dari Firebase
-    fun updateData(newList: ArrayList<ModelKategori>) {
-        listKategoriFull = newList
-        listKategoriDisplay = newList
+    fun updateData(newList: List<ModelKategori>) {
+        listKategori.clear()
+        listKategori.addAll(newList)
+
+        listKategoriFull.clear()
+        listKategoriFull.addAll(newList)
+
         notifyDataSetChanged()
     }
 
-    // Fungsi Pencarian
     fun filter(query: String) {
-        val pattern = query.lowercase(Locale.getDefault()).trim()
-        listKategoriDisplay = if (pattern.isEmpty()) {
-            listKategoriFull
+        val keyword = query.lowercase(Locale.getDefault()).trim()
+
+        listKategori.clear()
+
+        if (keyword.isEmpty()) {
+            listKategori.addAll(listKategoriFull)
         } else {
-            listKategoriFull.filter {
-                it.namaKategori?.lowercase(Locale.getDefault())?.contains(pattern) ?: false
+            val filteredList = listKategoriFull.filter {
+                it.namaKategori.orEmpty()
+                    .lowercase(Locale.getDefault())
+                    .contains(keyword)
             }
+            listKategori.addAll(filteredList)
         }
+
         notifyDataSetChanged()
     }
 }

@@ -6,6 +6,7 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.widget.EditText
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -48,8 +49,17 @@ class DataMenuActivity : AppCompatActivity() {
     }
 
     private fun setupRecyclerView() {
-        // Inisialisasi adapter dengan list kosong di awal
-        adapter = MenuAdapter(listMenu)
+        adapter = MenuAdapter(listMenu,
+            onEdit = { menu ->
+                // Pindah ke ModMenuActivity sambil membawa data menu yang mau diedit
+                val intent = Intent(this, ModMenuActivity::class.java)
+                intent.putExtra("MENU_DATA", menu)
+                startActivity(intent)
+            },
+            onHapus = { menu ->
+                showDeleteDialog(menu)
+            }
+        )
         rvMenu.layoutManager = LinearLayoutManager(this)
         rvMenu.adapter = adapter
     }
@@ -85,4 +95,19 @@ class DataMenuActivity : AppCompatActivity() {
             }
         })
     }
-}
+
+    private fun showDeleteDialog(menu: ModelMenu) {
+        val builder = android.app.AlertDialog.Builder(this)
+        builder.setTitle("Hapus Menu")
+        builder.setMessage("Apakah anda yakin ingin menghapus ${menu.namaProduk}?")
+        builder.setPositiveButton("Hapus") { _, _ ->
+            // Eksekusi hapus di Firebase berdasarkan ID
+            FirebaseDatabase.getInstance().getReference("menu")
+                .child(menu.idMenu!!).removeValue()
+                .addOnSuccessListener {
+                    Toast.makeText(this, "Berhasil dihapus", Toast.LENGTH_SHORT).show()
+                }
+        }
+        builder.setNegativeButton("Batal", null)
+        builder.show()
+    }}

@@ -1,15 +1,12 @@
 package com.shakilla.penjualan.model
 
 data class ModelMenu(
-    val idMenu: String = "",
-    val namaProduk: String = "",
+    val idMenu: String? = null,
+    val namaProduk: String? = null,
     val harga: Long = 0,
     val stok: Int = 0,
-    val cabang: String = "",
-    val kategori: String = "",
-    val status: String = "",
-    val urlFoto: String = ""
-) {
-    // Firebase membutuhkan konstruktor tanpa argumen.
-    // Dengan memberikan nilai default di atas, Kotlin otomatis menyediakannya.
-}
+    val kategori: String? = null,
+    val status: String? = "1",
+    val urlFoto: String? = null,
+    val listCabang: List<String>? = null
+) : java.io.Serializable

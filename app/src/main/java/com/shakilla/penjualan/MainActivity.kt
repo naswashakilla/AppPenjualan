@@ -33,14 +33,14 @@ class MainActivity : AppCompatActivity() {
         val btnPegawai: CardView = findViewById(R.id.btnMenuPegawai)
         val btnTransaksi: LinearLayout = findViewById(R.id.btnMenuTransaksi)
         val btnPrinter: CardView = findViewById(R.id.btnMenuPrinter)
+        val btnCabang: CardView = findViewById(R.id.btnMenuCabang)
+        val btnLaporan: LinearLayout = findViewById(R.id.btnMenuLaporan)
 
-        // Logika Klik Tombol Produk
         btnProduk.setOnClickListener {
             val intent = Intent(this, DataMenuActivity::class.java)
             startActivity(intent)
         }
 
-        // Logika Klik Tombol Kategori
         btnKategori.setOnClickListener {
             val intent = Intent(this, DataKategoriActivity::class.java)
             startActivity(intent)
@@ -57,6 +57,14 @@ class MainActivity : AppCompatActivity() {
         btnPrinter.setOnClickListener {
             startActivity(Intent(this, RiwayatActivity::class.java))
         }
+
+        btnCabang.setOnClickListener {
+            startActivity(Intent(this, CabangActivity::class.java))
+        }
+
+        btnLaporan.setOnClickListener {
+            startActivity(Intent(this, LaporanActivity::class.java))
+        }
     }
 
     private fun ambilDataUser() {
@@ -72,7 +80,6 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         } else {
-            // Jika tidak ada user, paksa kembali ke Login
             startActivity(Intent(this, LoginActivity::class.java))
             finish()
         }
