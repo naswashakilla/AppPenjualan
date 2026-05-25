@@ -1,7 +1,5 @@
 package com.shakilla.penjualan.pegawai
 
-import android.app.Activity
-import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.widget.ImageView
@@ -51,7 +49,6 @@ class TambahPegawaiActivity : AppCompatActivity() {
         val etGaji = findViewById<TextInputEditText>(R.id.etGajiPegawai)
 
         if (isEditMode) {
-            // Isi form dengan data lama
             etNama.setText(intent.getStringExtra("nama"))
             etEmail.setText(intent.getStringExtra("email"))
             etTelp.setText(intent.getStringExtra("telp"))
@@ -80,14 +77,23 @@ class TambahPegawaiActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
 
+            Toast.makeText(this, "Sedang menyimpan...", Toast.LENGTH_SHORT).show()
+
             if (fotoUri != null) {
-                // Upload foto dulu ke Firebase Storage
+                // Proses Upload Foto
                 val ref = storageRef.child("$idPegawai.jpg")
-                ref.putFile(fotoUri!!).addOnSuccessListener {
-                    ref.downloadUrl.addOnSuccessListener { url ->
-                        simpanKeDatabase(idPegawai, nama, email, telp, jabatan, gaji, url.toString())
+                ref.putFile(fotoUri!!)
+                    .addOnSuccessListener {
+                        ref.downloadUrl.addOnSuccessListener { url ->
+                            simpanKeDatabase(idPegawai, nama, email, telp, jabatan, gaji, url.toString())
+                        }
                     }
-                }
+                    .addOnFailureListener {
+                        Toast.makeText(this, "Gagal upload foto: ${it.message}", Toast.LENGTH_LONG).show()
+                        // Tetap simpan data teks walaupun foto gagal, atau batalkan? 
+                        // Di sini kita tetap coba simpan dengan foto lama jika ada.
+                        simpanKeDatabase(idPegawai, nama, email, telp, jabatan, gaji, fotoUrlLama)
+                    }
             } else {
                 simpanKeDatabase(idPegawai, nama, email, telp, jabatan, gaji, fotoUrlLama)
             }
@@ -97,10 +103,15 @@ class TambahPegawaiActivity : AppCompatActivity() {
     private fun simpanKeDatabase(id: String, nama: String, email: String, telp: String,
                                  jabatan: String, gaji: String, fotoUrl: String) {
         val data = mapOf(
-            "id" to id, "nama" to nama, "email" to email,
-            "telp" to telp, "jabatan" to jabatan,
-            "gaji" to gaji, "fotoUrl" to fotoUrl
+            "id" to id,
+            "nama" to nama,
+            "email" to email,
+            "telp" to telp,
+            "jabatan" to jabatan,
+            "gaji" to gaji,
+            "fotoUrl" to fotoUrl
         )
+        
         dbRef.child(id).setValue(data)
             .addOnSuccessListener {
                 val pesan = if (isEditMode) "Pegawai berhasil diupdate!" else "Pegawai berhasil ditambahkan!"
@@ -108,7 +119,7 @@ class TambahPegawaiActivity : AppCompatActivity() {
                 finish()
             }
             .addOnFailureListener {
-                Toast.makeText(this, "Gagal: ${it.message}", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Gagal menyimpan ke Database: ${it.message}", Toast.LENGTH_LONG).show()
             }
     }
 }
