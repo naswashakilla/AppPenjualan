@@ -49,15 +49,18 @@ class TransaksiActivity : AppCompatActivity() {
     private val menuTampil    = mutableListOf<ModelMenu>()
     private val listPesanan   = mutableListOf<ItemPesanan>()
     private val kategoriList  = mutableListOf<String>()
+    private val listNamaKasir = mutableListOf<String>()
     private var kategoriAktif = "Semua"
     private var diskon: Long  = 0L
     private var totalBayar: Long = 0
+    private var namaKasirAktif = "-"
 
     // Firebase — URL sama dengan ModMenuActivity
     private val database = FirebaseDatabase.getInstance(
         "https://penjualan-595b9f54-default-rtdb.asia-southeast1.firebasedatabase.app/"
     )
     private val menuRef = database.getReference("menu")
+    private val pegawaiRef = database.getReference("pegawai")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -68,6 +71,7 @@ class TransaksiActivity : AppCompatActivity() {
         setupRvPesanan()
         setupButtons()
         loadMenuDariFirebase()
+        loadPegawaiDariFirebase()
     }
 
     private fun initViews() {
@@ -131,6 +135,20 @@ class TransaksiActivity : AppCompatActivity() {
                     Toast.LENGTH_SHORT
                 ).show()
             }
+        })
+    }
+
+    private fun loadPegawaiDariFirebase() {
+        pegawaiRef.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                listNamaKasir.clear()
+                listNamaKasir.add("- Pilih Kasir -")
+                for (item in snapshot.children) {
+                    val nama = item.child("nama").getValue(String::class.java)
+                    if (nama != null) listNamaKasir.add(nama)
+                }
+            }
+            override fun onCancelled(error: DatabaseError) {}
         })
     }
 
@@ -217,7 +235,7 @@ class TransaksiActivity : AppCompatActivity() {
 
         btnCetak.setOnClickListener {
             val total = listPesanan.sumOf { it.subtotal }
-            cetakStruk(total, listPesanan)
+            cetakStruk(total, listPesanan, namaKasirAktif)
         }
     }
 
@@ -278,8 +296,14 @@ class TransaksiActivity : AppCompatActivity() {
         val tvTotalDialog = view.findViewById<TextView>(R.id.tvTotalDialog)
         val etUangBayar   = view.findViewById<TextInputEditText>(R.id.etUangBayar)
         val tvKembalian   = view.findViewById<TextView>(R.id.tvKembalian)
+        val spinnerKasir  = view.findViewById<Spinner>(R.id.spinnerKasir)
 
         tvTotalDialog.text = formatRupiah(total)
+
+        // Setup Spinner Kasir
+        val spinnerAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, listNamaKasir)
+        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        spinnerKasir.adapter = spinnerAdapter
 
         etUangBayar.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
@@ -311,9 +335,18 @@ class TransaksiActivity : AppCompatActivity() {
                     Toast.makeText(this, "Uang bayar kurang!", Toast.LENGTH_SHORT).show()
                     return@setOnClickListener
                 }
+
+                val kasirTerpilih = spinnerKasir.selectedItem.toString()
+                if (kasirTerpilih == "- Pilih Kasir -") {
+                    Toast.makeText(this, "Silakan pilih kasir!", Toast.LENGTH_SHORT).show()
+                    return@setOnClickListener
+                }
+
+                namaKasirAktif = kasirTerpilih
+
                 val catatan = view.findViewById<TextInputEditText>(R.id.etCatatan)
                     .text.toString().trim()
-                simpanTransaksi(total, bayar, catatan)
+                simpanTransaksi(total, bayar, catatan, kasirTerpilih)
                 dialog.dismiss()
             }
         }
@@ -321,7 +354,7 @@ class TransaksiActivity : AppCompatActivity() {
         dialog.show()
     }
 
-    private fun simpanTransaksi(total: Long, bayar: Long, catatan: String) {
+    private fun simpanTransaksi(total: Long, bayar: Long, catatan: String, kasir: String) {
         val transaksiRef = database.getReference("transaksi")
         val penjualanRef = database.getReference("penjualan")
         val id = transaksiRef.push().key ?: ""
@@ -342,7 +375,8 @@ class TransaksiActivity : AppCompatActivity() {
             "total" to total,
             "bayar" to bayar,
             "kembalian" to (bayar - total),
-            "catatan" to catatan
+            "catatan" to catatan,
+            "kasir" to kasir
         )
 
         val dataPenjualan = mapOf(
@@ -372,7 +406,7 @@ class TransaksiActivity : AppCompatActivity() {
                 .setTitle("Transaksi Sukses")
                 .setMessage("Apakah ingin mencetak struk?")
                 .setPositiveButton("Cetak") { _, _ ->
-                    cetakStruk(total, listPesanan)
+                    cetakStruk(total, listPesanan, kasir)
                     listPesanan.clear()
                     pesananAdapter.notifyDataSetChanged()
                     updateTotal()
@@ -390,39 +424,64 @@ class TransaksiActivity : AppCompatActivity() {
         return fmt.format(amount).replace(",00", "")
     }
 
-    private fun cetakStruk(totalBayar: Long, listPesanan: List<ItemPesanan>) {
-        // 1. Buat konten HTML untuk struk (lebih stabil untuk berbagai jenis printer)
-        var htmlContent = "<html><body>" +
-                "<h2 style='text-align:center;'>STRUK PENJUALAN</h2>" +
-                "<p>Tanggal: ${System.currentTimeMillis()}</p>" +
-                "<hr>" +
-                "<table style='width:100%'>"
-
-        // Looping item pesanan (menggunakan harga Long yang sudah diperbaiki)
-        for (item in listPesanan) {
-            htmlContent += "<tr>" +
-                    "<td>${item.menu.namaProduk} x${item.jumlah}</td>" +
-                    "<td style='text-align:right;'>${item.subtotal}</td>" +
-                    "</tr>"
+    private fun cetakStruk(totalBayar: Long, listPesanan: List<ItemPesanan>, kasir: String) {
+        if (listPesanan.isEmpty()) {
+            Toast.makeText(this, "Tidak ada pesanan", Toast.LENGTH_SHORT).show()
+            return
         }
 
-        htmlContent += "</table><hr>" +
-                "<h3 style='text-align:right;'>TOTAL: Rp $totalBayar</h3>" +
-                "<p style='text-align:center;'>Terima Kasih</p>" +
-                "</body></html>"
+        val dateFormat = java.text.SimpleDateFormat("dd/MM/yy HH:mm", Locale.getDefault())
+        val formattedDate = dateFormat.format(java.util.Date())
 
-        // 2. Gunakan WebView untuk proses cetak
+        // Desain Nota sangat minimalis (Plain Text style) agar cepat diproses printer
+        val htmlContent = """
+            <html>
+            <body style="font-family:monospace; font-size:25px; margin:0; padding:0;">
+                <div style="text-align:center; font-weight:bold; font-size:30px;">SAJI.ID</div>
+                <div style="text-align:center;">Solo, Jawa Tengah</div>
+                <div style="border-top:1px dashed #000; margin:10px 0;"></div>
+                <div style="font-size:20px;">
+                    Tgl  : $formattedDate<br>
+                    Kasir: $kasir
+                </div>
+                <div style="border-top:1px dashed #000; margin:10px 0;"></div>
+                <table style="width:100%; font-size:20px;">
+        """.trimIndent() + listPesanan.joinToString("") { item ->
+            """
+                <tr>
+                    <td colspan="2">${item.menu.namaProduk}</td>
+                </tr>
+                <tr>
+                    <td>${item.jumlah} x ${item.menu.harga}</td>
+                    <td style="text-align:right;">${item.subtotal}</td>
+                </tr>
+            """.trimIndent()
+        } + """
+                </table>
+                <div style="border-top:1px dashed #000; margin:10px 0;"></div>
+                <table style="width:100%; font-weight:bold; font-size:24px;">
+                    <tr>
+                        <td>TOTAL</td>
+                        <td style="text-align:right;">${formatRupiah(totalBayar)}</td>
+                    </tr>
+                </table>
+                <div style="text-align:center; margin-top:20px; font-size:18px;">
+                    *** TERIMA KASIH ***
+                </div>
+                <br><br>
+            </body>
+            </html>
+        """.trimIndent()
+
         val webView = WebView(this)
         webView.webViewClient = object : WebViewClient() {
             override fun onPageFinished(view: WebView, url: String) {
                 val printManager = getSystemService(Context.PRINT_SERVICE) as PrintManager
-                val printAdapter = webView.createPrintDocumentAdapter("Struk_Penjualan")
-
-                printManager.print(
-                    "Struk Penjualan",
-                    printAdapter,
-                    PrintAttributes.Builder().build()
-                )
+                val printAdapter = webView.createPrintDocumentAdapter("Struk_${System.currentTimeMillis()}")
+                printManager.print("Nota", printAdapter, PrintAttributes.Builder()
+                    .setMediaSize(PrintAttributes.MediaSize.JPN_YOU4)
+                    .setMinMargins(PrintAttributes.Margins.NO_MARGINS)
+                    .build())
             }
         }
         webView.loadDataWithBaseURL(null, htmlContent, "text/HTML", "UTF-8", null)

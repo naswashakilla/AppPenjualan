@@ -7,5 +7,6 @@ data class ModelTransaksi(
     val bayar: Long = 0,
     val kembalian: Long = 0,
     val catatan: String? = null,
+    val kasir: String? = null,
     val items: List<Map<String, Any>>? = null
 )

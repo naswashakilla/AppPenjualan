@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
+    android:background="?attr/colorSurface"
     android:padding="8dp">
 
     <!-- Header icon -->
@@ -15,7 +16,7 @@
         android:layout_marginTop="8dp"
         android:src="@android:drawable/ic_dialog_info"
         android:contentDescription="Bayar"
-        app:tint="#673AB7" />
+        app:tint="@color/teal_deep" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -24,7 +25,7 @@
         android:layout_marginTop="8dp"
         android:text="Total Pembayaran"
         android:textSize="13sp"
-        android:textColor="#9E9E9E" />
+        android:textColor="?attr/colorOnSurfaceVariant" />
 
     <TextView
         android:id="@+id/tvTotalDialog"
@@ -35,13 +36,13 @@
         android:text="Rp 0"
         android:textSize="26sp"
         android:textStyle="bold"
-        android:textColor="#673AB7" />
+        android:textColor="@color/teal_deep" />
 
     <!-- Divider -->
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="#EEEEEE"
+        android:background="@color/divider"
         android:layout_marginTop="16dp"
         android:layout_marginBottom="16dp" />
 
@@ -52,7 +53,7 @@
         android:text="Uang Bayar"
         android:textSize="12sp"
         android:textStyle="bold"
-        android:textColor="#673AB7"
+        android:textColor="@color/teal_deep"
         android:layout_marginBottom="4dp"
         android:layout_marginStart="4dp" />
 
@@ -64,17 +65,18 @@
         app:boxCornerRadiusTopEnd="12dp"
         app:boxCornerRadiusBottomStart="12dp"
         app:boxCornerRadiusBottomEnd="12dp"
-        app:boxStrokeColor="#673AB7"
-        app:hintTextColor="#673AB7"
+        app:boxStrokeColor="@color/teal_deep"
+        app:hintTextColor="@color/teal_deep"
         android:hint="Masukkan nominal"
         app:prefixText="Rp "
-        app:prefixTextColor="#673AB7">
+        app:prefixTextColor="@color/teal_deep">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/etUangBayar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="numberDecimal"
+            android:textColor="?attr/colorOnSurface"
             android:textSize="16sp" />
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -86,7 +88,7 @@
         android:layout_marginTop="12dp"
         app:cardCornerRadius="12dp"
         app:cardElevation="0dp"
-        app:cardBackgroundColor="#F3EDF9">
+        app:cardBackgroundColor="?attr/colorSurfaceVariant">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -101,7 +103,7 @@
                 android:layout_weight="1"
                 android:text="Kembalian"
                 android:textSize="13sp"
-                android:textColor="#757575" />
+                android:textColor="?attr/colorOnSurfaceVariant" />
 
             <TextView
                 android:id="@+id/tvKembalian"
@@ -110,9 +112,34 @@
                 android:text="Rp 0"
                 android:textSize="16sp"
                 android:textStyle="bold"
-                android:textColor="#673AB7" />
+                android:textColor="@color/teal_deep" />
 
         </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+    <!-- Label Kasir -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Kasir / Pegawai"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        android:textColor="@color/teal_deep"
+        android:layout_marginTop="12dp"
+        android:layout_marginBottom="4dp"
+        android:layout_marginStart="4dp" />
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="12dp"
+        app:cardElevation="0dp"
+        app:cardBackgroundColor="?attr/colorSurfaceVariant">
+        <Spinner
+            android:id="@+id/spinnerKasir"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:padding="8dp" />
     </androidx.cardview.widget.CardView>
 
     <!-- Catatan -->
@@ -122,7 +149,7 @@
         android:text="Catatan (opsional)"
         android:textSize="12sp"
         android:textStyle="bold"
-        android:textColor="#673AB7"
+        android:textColor="@color/teal_deep"
         android:layout_marginTop="12dp"
         android:layout_marginBottom="4dp"
         android:layout_marginStart="4dp" />
@@ -135,8 +162,8 @@
         app:boxCornerRadiusTopEnd="12dp"
         app:boxCornerRadiusBottomStart="12dp"
         app:boxCornerRadiusBottomEnd="12dp"
-        app:boxStrokeColor="#673AB7"
-        app:hintTextColor="#673AB7"
+        app:boxStrokeColor="@color/teal_deep"
+        app:hintTextColor="@color/teal_deep"
         android:hint="Misal: meja 3, takeaway...">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -144,6 +171,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="text"
+            android:textColor="?attr/colorOnSurface"
             android:maxLines="2" />
 
     </com.google.android.material.textfield.TextInputLayout>

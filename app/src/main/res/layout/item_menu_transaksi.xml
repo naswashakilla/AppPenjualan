@@ -63,7 +63,7 @@
             android:textSize="12sp"
             android:textAllCaps="false"
             android:textColor="#FFFFFF"
-            android:backgroundTint="#673AB7"
+            android:backgroundTint="@color/teal_deep"
             app:cornerRadius="8dp"
             android:paddingStart="0dp"
             android:paddingEnd="0dp" />

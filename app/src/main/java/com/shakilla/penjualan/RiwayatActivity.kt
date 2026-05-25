@@ -79,27 +79,80 @@ class RiwayatActivity : AppCompatActivity() {
 
     // Fungsi cetak ulang khusus untuk data dari ModelTransaksi
     private fun cetakUlangStruk(data: ModelTransaksi) {
-        var htmlContent = "<html><body style='font-family:monospace;'>" +
-                "<h2 style='text-align:center;'>STRUK PENJUALAN</h2>" +
-                "<p>Tanggal: ${data.tanggal}</p><hr><table style='width:100%'>"
+        var htmlContent = """
+            <html>
+            <head>
+                <style>
+                    body { font-family: 'Courier New', Courier, monospace; width: 100%; margin: 0; padding: 10px; font-size: 12pt; color: black; background: white; }
+                    .header { text-align: center; margin-bottom: 10px; }
+                    .footer { text-align: center; margin-top: 20px; font-size: 10pt; }
+                    .divider { border-top: 1px dashed black; margin: 5px 0; }
+                    table { width: 100%; border-collapse: collapse; }
+                    .total { font-weight: bold; font-size: 14pt; }
+                    .item-name { padding: 2px 0; }
+                    .item-price { text-align: right; padding: 2px 0; }
+                </style>
+            </head>
+            <body>
+                <div class="header">
+                    <h2 style="margin: 0;">TOKOKU</h2>
+                    <p style="margin: 2px 0;">(SALINAN STRUK)</p>
+                </div>
+                <div class="divider"></div>
+                <p style="margin: 5px 0;">Tgl: ${data.tanggal}</p>
+                <p style="margin: 5px 0;">Kasir: ${data.kasir ?: "-"}</p>
+                <p style="margin: 5px 0;">ID: ${data.id?.takeLast(8)}</p>
+                <div class="divider"></div>
+                <table>
+        """.trimIndent()
 
         data.items?.forEach { item ->
-            htmlContent += "<tr>" +
-                    "<td>${item["namaProduk"]} x${item["jumlah"]}</td>" +
-                    "<td style='text-align:right;'>${item["subtotal"]}</td>" +
-                    "</tr>"
+            val nama = item["namaProduk"] ?: "-"
+            val jumlah = item["jumlah"] ?: 0
+            val subtotal = (item["subtotal"] as? Number)?.toLong() ?: 0L
+            
+            htmlContent += """
+                <tr>
+                    <td class="item-name">$nama<br><small>$jumlah x ...</small></td>
+                    <td class="item-price">Rp $subtotal</td>
+                </tr>
+            """.trimIndent()
         }
 
-        htmlContent += "</table><hr>" +
-                "<h3 style='text-align:right;'>TOTAL: Rp ${data.total}</h3>" +
-                "<p style='text-align:center;'>Cetak Ulang Riwayat</p></body></html>"
+        htmlContent += """
+                </table>
+                <div class="divider"></div>
+                <table>
+                    <tr class="total">
+                        <td>TOTAL</td>
+                        <td style="text-align: right;">Rp ${data.total}</td>
+                    </tr>
+                    <tr>
+                        <td>BAYAR</td>
+                        <td style="text-align: right;">Rp ${data.bayar}</td>
+                    </tr>
+                    <tr>
+                        <td>KEMBALI</td>
+                        <td style="text-align: right;">Rp ${data.kembalian}</td>
+                    </tr>
+                </table>
+                <div class="divider"></div>
+                <div class="footer">
+                    <p>Terima Kasih Atas Kunjungan Anda</p>
+                </div>
+            </body>
+            </html>
+        """.trimIndent()
 
         val webView = WebView(this)
         webView.webViewClient = object : WebViewClient() {
             override fun onPageFinished(view: WebView, url: String) {
                 val printManager = getSystemService(Context.PRINT_SERVICE) as PrintManager
-                val printAdapter = webView.createPrintDocumentAdapter("Struk_${data.id}")
-                printManager.print("Struk Penjualan", printAdapter, PrintAttributes.Builder().build())
+                val jobName = "Salinan_Struk_${data.id?.takeLast(4)}"
+                val printAdapter = webView.createPrintDocumentAdapter(jobName)
+                printManager.print(jobName, printAdapter, PrintAttributes.Builder()
+                    .setMediaSize(PrintAttributes.MediaSize.JPN_YOU4)
+                    .build())
             }
         }
         webView.loadDataWithBaseURL(null, htmlContent, "text/HTML", "UTF-8", null)

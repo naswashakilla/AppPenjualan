@@ -10,8 +10,14 @@
         <item name="colorSecondary">@color/teal_light</item>
         <item name="colorOnSecondary">@color/white</item>
 
-        <item name="android:windowBackground">@color/white</item>
+        <item name="android:windowBackground">@color/surface_background</item>
         <item name="android:statusBarColor">@color/teal_deep</item>
+
+        <!-- Semantic mapping -->
+        <item name="colorSurface">@color/surface_background</item>
+        <item name="colorOnSurface">@color/on_surface</item>
+        <item name="colorSurfaceVariant">@color/surface_variant</item>
+        <item name="colorOnSurfaceVariant">@color/on_surface_variant</item>
     </style>
 
     <style name="Theme.Penjualan" parent="Base.Theme.Penjualan" />

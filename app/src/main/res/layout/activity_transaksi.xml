@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="?attr/colorSurface"
     tools:context=".TransaksiActivity">
 
     <LinearLayout
@@ -56,16 +56,16 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
-            app:boxBackgroundColor="#FFFFFF"
+            app:boxBackgroundColor="?attr/colorSurface"
             app:boxCornerRadiusTopStart="12dp"
             app:boxCornerRadiusTopEnd="12dp"
             app:boxCornerRadiusBottomStart="12dp"
             app:boxCornerRadiusBottomEnd="12dp"
             app:boxStrokeWidth="0dp"
-            app:hintTextColor="#9E9E9E"
+            app:hintTextColor="?attr/colorOnSurfaceVariant"
             android:hint="Cari menu..."
             app:startIconDrawable="@android:drawable/ic_menu_search"
-            app:startIconTint="#9E9E9E">
+            app:startIconTint="?attr/colorOnSurfaceVariant">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etSearch"
@@ -73,6 +73,7 @@
                 android:layout_height="wrap_content"
                 android:inputType="text"
                 android:imeOptions="actionSearch"
+                android:textColor="?attr/colorOnSurface"
                 android:textSize="14sp" />
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -97,7 +98,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="52dp"
                 android:scrollbars="none"
-                android:background="#FFFFFF"
+                android:background="?attr/colorSurface"
                 android:elevation="2dp">
 
                 <LinearLayout
@@ -126,7 +127,7 @@
                 android:layout_weight="1"
                 android:clipToPadding="false"
                 android:padding="8dp"
-                android:background="#F8F9FA"
+                android:background="?attr/colorSurfaceVariant"
                 tools:listitem="@layout/item_menu_transaksi" />
 
         </LinearLayout>
@@ -135,7 +136,7 @@
             android:layout_width="210dp"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:background="#FFFFFF"
+            android:background="?attr/colorSurface"
             android:elevation="6dp">
 
             <LinearLayout
@@ -155,7 +156,7 @@
                     android:text="Pesanan"
                     android:textSize="15sp"
                     android:textStyle="bold"
-                    android:textColor="#212121" />
+                    android:textColor="?attr/colorOnSurface" />
 
                 <TextView
                     android:id="@+id/tvJumlahItem"
@@ -175,7 +176,7 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="#F0F0F0" />
+                android:background="@color/divider" />
 
             <!-- List Pesanan -->
             <androidx.recyclerview.widget.RecyclerView
@@ -191,7 +192,7 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="#F0F0F0" />
+                android:background="@color/divider" />
 
             <!-- Summary Card -->
             <androidx.cardview.widget.CardView
@@ -200,7 +201,7 @@
                 android:layout_margin="10dp"
                 app:cardCornerRadius="12dp"
                 app:cardElevation="0dp"
-                app:cardBackgroundColor="#FDFCE6">
+                app:cardBackgroundColor="?attr/colorSurfaceVariant">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -219,14 +220,14 @@
                             android:layout_weight="1"
                             android:text="Subtotal"
                             android:textSize="12sp"
-                            android:textColor="#757575" />
+                            android:textColor="?attr/colorOnSurfaceVariant" />
                         <TextView
                             android:id="@+id/tvSubtotal"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Rp 0"
                             android:textSize="12sp"
-                            android:textColor="#212121" />
+                            android:textColor="?attr/colorOnSurface" />
                     </LinearLayout>
 
                     <!-- Diskon -->
@@ -241,7 +242,7 @@
                             android:layout_weight="1"
                             android:text="Diskon"
                             android:textSize="12sp"
-                            android:textColor="#757575" />
+                            android:textColor="?attr/colorOnSurfaceVariant" />
                         <TextView
                             android:id="@+id/tvDiskon"
                             android:layout_width="wrap_content"
@@ -255,7 +256,7 @@
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
-                        android:background="#D1C4E9"
+                        android:background="@color/divider"
                         android:layout_marginTop="8dp"
                         android:layout_marginBottom="8dp" />
 
@@ -271,7 +272,7 @@
                             android:text="Total"
                             android:textSize="14sp"
                             android:textStyle="bold"
-                            android:textColor="#212121" />
+                            android:textColor="?attr/colorOnSurface" />
                         <TextView
                             android:id="@+id/tvTotal"
                             android:layout_width="wrap_content"
@@ -319,13 +320,14 @@
                 app:cornerRadius="12dp" />
 
             <Button
-            android:id="@+id/btnCetak"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="16dp"
-            android:text="Cetak Struk"
-            app:strokeColor="#000000"
-            android:textColor="@android:color/black" />
+                android:id="@+id/btnCetak"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="16dp"
+                android:text="Cetak Struk"
+                style="@style/Widget.Material3.Button.TonalButton" />
 
         </LinearLayout>
 
