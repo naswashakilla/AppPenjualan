@@ -25,10 +25,9 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:src="@drawable/ic_produk"
-            app:tint="@color/teal_deep" />
+            android:layout_width="95dp"
+            android:layout_height="95dp"
+            android:src="@drawable/logo" />
 
         <TextView
             android:layout_width="wrap_content"
