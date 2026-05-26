@@ -15,7 +15,7 @@
 ## 📱 Screenshots
 
 
-| ![Dashboard](https://raw.githubusercontent.com/shakilla/AppPenjualan/app/src/main/res/drawable/halaman.jpeg) | ![Transaksi](https://raw.githubusercontent.com/shakilla/AppPenjualan/main/res/drawable/transaksi.jpeg) |
+| ![Dashboard](app/src/main/res/drawable/halaman.jpeg) | ![Transaksi](app/src/main/res/drawable/transaksi.jpeg) |
 
 | Manajemen Menu | Struk Nota |
 | :---: | :---: |
