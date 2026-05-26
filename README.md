@@ -17,22 +17,22 @@
 <p align="center">
   <img src="app/src/main/res/drawable/halaman.jpeg" width="200" title="Dashboard">
   <img src="app/src/main/res/drawable/transaksi.jpeg" width="200" title="Transaksi">
-<img src="app/src/main/res/drawable/catatan.jpeg" width="200" title="Catatan">
+  <img src="app/src/main/res/drawable/catatan.jpeg" width="200" title="Catatan">
   <img src="app/src/main/res/drawable/tambahcatatan.jpeg" width="200" title="Tambah Catatan">
-<img src="app/src/main/res/drawable/laporan.jpeg" width="200" title="Laporan">
-<img src="app/src/main/res/drawable/login.png" width="200" title="Login">
+  <img src="app/src/main/res/drawable/laporan.jpeg" width="200" title="Laporan">
+  <img src="app/src/main/res/drawable/login.png" width="200" title="Login">
   <img src="app/src/main/res/drawable/kategori.jpeg" width="200" title="Data Kategori">
   <img src="app/src/main/res/drawable/menu.jpeg" width="200" title="Daftar Menu">
-<img src="app/src/main/res/drawable/tambahmenu.jpeg" width="200" title="Manajemen Menu">
-<img src="app/src/main/res/drawable/pegawai.jpeg" width="200" title="Data Pegawai">
-<img src="app/src/main/res/drawable/tambahpegawai.jpeg" width="200" title="Manajemen Pegawai">
-<img src="app/src/main/res/drawable/layanan.jpeg" width="200" title="layanan">
-<img src="app/src/main/res/drawable/servis.jpeg" width="200" title="servis">
-<img src="app/src/main/res/drawable/tambahservis.jpeg" width="200" title="Tambah Servis">
-<img src="app/src/main/res/drawable/promo.jpeg" width="200" title="Promo">
-<img src="app/src/main/res/drawable/ulasan.jpeg" width="200" title="Rating dan Ulasan">
-<img src="app/src/main/res/drawable/cabang.jpeg" width="200" title="Cabang>
-<img src="app/src/main/res/drawable/prin.jpeg" width="200" title="Printer">
+  <img src="app/src/main/res/drawable/tambahmenu.jpeg" width="200" title="Manajemen Menu">
+  <img src="app/src/main/res/drawable/pegawai.jpeg" width="200" title="Data Pegawai">
+  <img src="app/src/main/res/drawable/tambahpegawai.jpeg" width="200" title="Manajemen Pegawai">
+  <img src="app/src/main/res/drawable/layanan.jpeg" width="200" title="Layanan">
+  <img src="app/src/main/res/drawable/servis.jpeg" width="200" title="Servis">
+  <img src="app/src/main/res/drawable/tambahservis.jpeg" width="200" title="Tambah Servis">
+  <img src="app/src/main/res/drawable/promo.jpeg" width="200" title="Promo">
+  <img src="app/src/main/res/drawable/ulasan.jpeg" width="200" title="Rating dan Ulasan">
+  <img src="app/src/main/res/drawable/cabang.jpeg" width="200" title="Cabang">
+  <img src="app/src/main/res/drawable/prin.jpeg" width="200" title="Printer">
 </p>
 
 ## 🛠️ Teknologi yang Digunakan
@@ -51,4 +51,3 @@
 3. Unduh file `google-services.json` dan letakkan di folder `app/`.
 4. Aktifkan Firebase Auth, Realtime Database, dan Storage.
 5. Build dan jalankan aplikasi di Android Studio.
-
