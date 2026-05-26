@@ -14,12 +14,26 @@
 
 ## 📱 Screenshots
 
-
-| ![Dashboard](app/src/main/res/drawable/halaman.jpeg) | ![Transaksi](app/src/main/res/drawable/transaksi.jpeg) |
-
-| Manajemen Menu | Struk Nota |
-| :---: | :---: |
-| ![Menu](https://raw.githubusercontent.com/shakilla/AppPenjualan/main/screenshots/menu.png) | ![Nota](https://raw.githubusercontent.com/shakilla/AppPenjualan/main/screenshots/nota.png) |
+<p align="center">
+  <img src="app/src/main/res/drawable/halaman.jpeg" width="200" title="Dashboard">
+  <img src="app/src/main/res/drawable/transaksi.jpeg" width="200" title="Transaksi">
+<img src="app/src/main/drawable/catatan.jpeg" width="200" title="Catatan">
+  <img src="app/src/main/drawable/tambahcatatan.jpeg" width="200" title="Tambah Catatan">
+<img src="app/src/main/drawable/laporan.jpeg" width="200" title="Laporan">
+<img src="app/src/main/drawable/login.png" width="200" title="Login">
+  <img src="app/src/main/drawable/kategori.jpeg" width="200" title="Data Kategori">
+  <img src="app/src/main/drawable/menu.jpeg" width="200" title="Daftar Menu">
+<img src="app/src/main/drawable/tambahmenu.jpeg" width="200" title="Manajemen Menu">
+<img src="app/src/main/drawable/pegawai.jpeg" width="200" title="Data Pegawai">
+<img src="app/src/main/drawable/tambahpegawai.jpeg" width="200" title="Manajemen Pegawai">
+<img src="app/src/main/drawable/layanan.jpeg" width="200" title="layanan">
+<img src="app/src/main/drawable/servis.jpeg" width="200" title="servis">
+<img src="app/src/main/drawable/tambahservis.jpeg" width="200" title="Tambah Servis">
+<img src="app/src/main/drawable/promo.jpeg" width="200" title="Promo">
+<img src="app/src/main/drawable/ulasan.jpeg" width="200" title="Rating dan Ulasan">
+<img src="app/src/main/drawable/cabang.jpeg" width="200" title="Cabang>
+<img src="app/src/main/drawable/prin.jpeg" width="200" title="Printer">
+</p>
 
 ## 🛠️ Teknologi yang Digunakan
 - **Bahasa:** Kotlin
@@ -38,5 +52,3 @@
 4. Aktifkan Firebase Auth, Realtime Database, dan Storage.
 5. Build dan jalankan aplikasi di Android Studio.
 
----
-Dikembangkan dengan ❤️ oleh **Shakilla**
