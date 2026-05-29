@@ -67,7 +67,8 @@ class LaporanActivity : AppCompatActivity() {
         adapterLaporan = LaporanProdukAdapter(listMenu)
         rvLaporan.adapter = adapterLaporan
 
-        findViewById<View>(R.id.toolbar)?.setOnClickListener {
+        val toolbar = findViewById<com.google.android.material.appbar.MaterialToolbar>(R.id.toolbar)
+        toolbar.setNavigationOnClickListener {
             finish()
         }
     }
